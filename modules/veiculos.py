@@ -16,18 +16,23 @@ class Cadastro_veiculos:
     # CRUD
 
     def criar_veiculo(self, placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status):
+        '''Recebe os dados do veículo e cadastra o motorista no banco de dados.'''
         pass
 
     def ler_veiculo(self, placa):
+        '''Recebe uma placa e retorna os dados do veículo com essa placa.'''
         pass
 
     def atualizar_veiculo(self, placa):
+        '''Recebe uma placa e atualiza os dados do veículo com essa placa.'''
         pass
 
     def remover_veiculo(self, placa):
+        '''Recebe uma placa e remove os dados do veículo com essa placa do banco de dados.'''
         pass
 
     # registar histórico de eventos (entrada, saída, manutenção, abastecimeto, desativação)
     
-    def registrar_historico(self):
+    def registrar_historico(self, data, evento):
+        '''Recebe a data e o nome do evento e registra o evento no histórico.'''
         pass
