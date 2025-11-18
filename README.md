@@ -2,6 +2,11 @@
 
 > Um sistema de gerenciamento de frota de veículos desenvolvido em Python
 
+## Sobre 📚
+
+- O Conveyance Manager (do inglês "gerenciador de transportes") é um projeto da disciplina de Programação orientada a objetos da Universidade Federal do Cariri (UFCA), a qual é ministrada pelo professor Jayr Pereira. O objetivo é um desenvolver sistema de linha de comando (CLI) ou uma API mínima (FastAPI ou Flask, opcional) para gerenciar a frota de veículos de uma empresa de transporte. Nele são necessárias as funcionalidades de cadastro de veículos, controle de manutenções, alocação a motoristas, registro de abastecimentos, cálculo de custos médios e relatórios de desempenho.
+
+
 ## 📋 Pré-requisitos
 
 - Python 3
