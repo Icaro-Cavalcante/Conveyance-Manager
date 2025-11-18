@@ -1,4 +1,5 @@
 class Alocacao():
+    '''É a classe que cuida da alocação de veículos a motoristas e da quilometragem do veículo.'''
     def __init__(self, origem, destino, distancia):
         self.origem = origem
         self.destino = destino

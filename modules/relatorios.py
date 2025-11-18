@@ -1,4 +1,5 @@
 class Relatorio():
+    '''É a classe que cria os relatórios.'''
     def __init__(self):
         pass
 

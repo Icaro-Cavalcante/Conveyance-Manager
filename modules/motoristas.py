@@ -1,4 +1,5 @@
 class Motorista:
+    '''É a classe dos motoristas.'''
     def __init__(self, nome, cpf, categoria_cnh, experiencia, disponibilidade, historico):
         self.nome = nome
         self.cpf = cpf
@@ -8,6 +9,7 @@ class Motorista:
         self.historico = historico
 
 class Cadastro_motorista:
+    '''É a classe que cuida do CRUD dos motoristas.'''
     def __init__(self):
         self.motorista = []
 

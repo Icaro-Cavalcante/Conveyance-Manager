@@ -1,4 +1,5 @@
 class Manutencoes:
+    '''É a classe que cuida da manutenção de veículos.'''
     def __init__(self, data, tipo, descricao):
         self.data = data
         self.tipo = tipo # (preventiva, corretiva)

@@ -1,4 +1,5 @@
 class Veiculo:
+    '''É a classe dos veículos.'''
     def __init__(self, placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status):
         self.placa = placa
         self.marca = marca
@@ -10,6 +11,7 @@ class Veiculo:
         self.status = status
 
 class Cadastro_veiculos:
+    '''É a classe que cuida do CRUD dos veículos.'''
     def __init__(self):
         self.veiculo = []
 

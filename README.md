@@ -2,10 +2,6 @@
 
 > Um sistema de gerenciamento de frota de veículos desenvolvido em Python
 
-## Sobre 🚖
-
-O conveyance manager é um sistema de gerenciamento de frota de veículos 
-
 ## 📋 Pré-requisitos
 
 - Python 3

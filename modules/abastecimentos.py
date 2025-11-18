@@ -1,4 +1,5 @@
 class Abastecimento:
+    '''É a classe que cuida do abastecimento dos veículos e do consumo de combustível.'''
     def __init__(self, data, tipo_combustivel, litros, valor):
         self.data = data
         self.tipo_combustivel = tipo_combustivel
