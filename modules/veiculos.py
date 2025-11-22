@@ -22,10 +22,6 @@ class Carro(Veiculo):
     '''É a classe dos carros.'''
     pass
 
-bis = Moto("05", "HGHG6745", "Chevrolet", "bis", "CNHA", "78", "12km/l", "ativo")
-
-print(bis.status)
-
 class Cadastro_veiculos:
     '''É a classe que cuida do CRUD dos veículos.'''
     def __init__(self):
