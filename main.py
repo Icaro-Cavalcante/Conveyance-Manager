@@ -11,6 +11,19 @@ def main():
         print("-" * 20)
         print(f"Escolha uma opção:\n1 - Abastecimento\n2 - Alocação\n3 - Manutenções\n4 - Cadastro de motoristas\n5 - Relatórios\n6 - Cadastro de veículos\n7 - Sair")
         escolha = int(input("Sua escolha: "))
+        print("")
+        if escolha == 6:
+            menu_veiculos()
         if escolha == 7:
+            break
+
+def menu_veiculos():
+    while True:
+        print("Menu de veículos")
+        print(f"-" * 20)
+        print(f"Escolha uma opção:\n1 - Cadastrar veículos\n2 - Procurar veículos\n3 - Editar veículos\n4 - Remover veículos\n5 - Voltar")
+        escolha = int(input("Sua escolha: "))
+        print("")
+        if escolha == 5:
             break
 main()
