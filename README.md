@@ -17,10 +17,14 @@
 Conveyance-Manager/
 ├── main.py                      # Arquivo principal do sistema
 |
-├── config
-|   └── settings.json         # Arquivo json de configurações
+├── data                       
+|   ├── motoristas.json         # Dados dos motoristas
+|   └── veiculos.json           # Dados dos veículos
 |
-├── modules # módulos do projeto
+├── config
+|   └── settings.json            # Arquivo json de configurações
+|
+├── modules     
 |   ├── abastecimentos.py        # Classe utilizada para os abastecimentos
 |   ├── alocacao.py              # Classe utilizada para as alocações
 |   ├── manutencoes.py           # Classe utilizada para as manutenções
