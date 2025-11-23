@@ -21,9 +21,14 @@ def menu_veiculos():
     while True:
         print("Menu de veículos")
         print(f"-" * 20)
-        print(f"Escolha uma opção:\n1 - Cadastrar veículos\n2 - Procurar veículos\n3 - Editar veículos\n4 - Remover veículos\n5 - Voltar")
+        print(f"Escolha uma opção:\n1 - Cadastrar veículos\n2 - Procurar veículos\n3 - Editar veículos\n4 - Remover veículos\n5 - Voltar\n")
         escolha = int(input("Sua escolha: "))
         print("")
+        if escolha == 1:
+            Cadastro_veiculos.criar_veiculo()
+        elif escolha == 2:
+            placa = str(input("Qual a placa do veículo que deseja procurar? "))
+            Cadastro_veiculos.ler_veiculo(placa)
         if escolha == 5:
             break
 main()

@@ -1,3 +1,5 @@
+veiculos = []
+
 class Veiculo:
     '''É a classe dos veículos.'''
     def __init__(self, placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status):
@@ -29,24 +31,37 @@ class Cadastro_veiculos:
 
     # CRUD
 
-    def criar_veiculo(self, placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status):
+    def criar_veiculo():
         '''Recebe os dados do veículo e cadastra o motorista no banco de dados.'''
+        placa = str(input("Digite a placa do veículo: "))
+        marca = str(input("Digite a marca do carro: "))
+        modelo = str(input("Digite o modelo do veículo: "))
+        tipo = str(input("Digite o tipo do veículo: "))
+        ano = str(input("Digite o ano do veículo: "))
+        quilometragem = float(input("Digite a quilometragem do veículo: "))
+        consumo_medio = float(input("Digite o consumo médio do veículo: "))
+        status = str(input("Digite o status do veículo: "))
+
+        novo_veiculo = Veiculo(placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status)
+        veiculos.append(novo_veiculo)
         pass
 
-    def ler_veiculo(self, placa):
+    def ler_veiculo(placa):
         '''Recebe uma placa e retorna os dados do veículo com essa placa.'''
-        pass
+        for veiculo in veiculos:
+            if placa == veiculo.placa:
+                print(f"Placa: {veiculo.placa}\nMarca: {veiculo.marca}\nModelo: {veiculo.modelo}\nTipo: {veiculo.tipo}\nQuilometragem: {veiculo.quilometragem}\nConsumo médio: {veiculo.consumo_medio}\nStatus {veiculo.status}")
 
-    def atualizar_veiculo(self, placa):
+    def atualizar_veiculo(placa):
         '''Recebe uma placa e atualiza os dados do veículo com essa placa.'''
         pass
 
-    def remover_veiculo(self, placa):
+    def remover_veiculo(placa):
         '''Recebe uma placa e remove os dados do veículo com essa placa do banco de dados.'''
         pass
 
     # registar histórico de eventos (entrada, saída, manutenção, abastecimeto, desativação)
     
-    def registrar_historico(self, data, evento):
+    def registrar_historico(data, evento):
         '''Recebe a data e o nome do evento e registra o evento no histórico.'''
         pass
