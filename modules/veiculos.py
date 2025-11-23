@@ -44,7 +44,7 @@ class Cadastro_veiculos:
 
         novo_veiculo = Veiculo(placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status)
         veiculos.append(novo_veiculo)
-        print("Veículo Criado")
+        print("Veículo Criado\n")
         pass
 
     def ler_veiculo(placa):
@@ -79,10 +79,15 @@ class Cadastro_veiculos:
         elif atributo == 7:
             novo_status = str(input("Digite o novo status: "))
             update.status = novo_status
-        print("Atributo editado.")
+        print("Atributo editado.\n")
 
     def remover_veiculo(placa):
         '''Recebe uma placa e remove os dados do veículo com essa placa do banco de dados.'''
+        for veiculo in veiculos:
+            if placa == veiculo.placa:
+                remove = veiculo
+        index = veiculos.index(remove)
+        veiculos.pop(index)
         pass
 
     # registar histórico de eventos (entrada, saída, manutenção, abastecimeto, desativação)

@@ -31,6 +31,9 @@ def menu_veiculos():
             Cadastro_veiculos.ler_veiculo(placa)
         elif escolha == 3:
             menu_edicao_veiculos()
+        elif escolha == 4:
+            placa = str(input("Qual a placa do veículo que deseja remover? "))
+            Cadastro_veiculos.remover_veiculo(placa)
         elif escolha == 5:
             break
 
