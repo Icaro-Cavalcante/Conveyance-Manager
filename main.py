@@ -14,8 +14,47 @@ def main():
         print("")
         if escolha == 6:
             menu_veiculos()
-        if escolha == 7:
+        elif escolha == 4:
+            menu_motoristas()
+        elif escolha == 7:
             break
+
+def menu_motoristas():
+    while True:
+        print("Menu de motoristas:")
+        print("-" * 20)
+        print(f"1 - Cadastrar motoristas\n2 - Procurar motoristas\n3 - Editar motoristas\n4 - Remover motoristas\n5 - Voltar")
+        escolha = int(input("Sua escolha: "))
+        print("")
+        if escolha == 1:
+            Cadastro_motorista.criar_motorista()
+        elif escolha == 2:
+            outro_cpf = int(input("Digite o CPF do motorista que deseja procurar: "))
+            Cadastro_motorista.ler_motorista(outro_cpf)
+        elif escolha == 3:
+            menu_edicao_motoristas()
+        elif escolha == 4:
+            outro_cpf = int(input("Digite o CPF do motorista que deseja procurar: "))
+            Cadastro_motorista.remover_motorista(outro_cpf)
+        elif escolha == 5:
+            break
+        else:
+            print("Escolha inválida")
+
+def menu_edicao_motoristas():
+    while True:
+        print("Menu de edição de motoristas:")
+        print("-" * 20)
+        print(f"1 - Nome\n2 - Categoria da CNH\n3 - Experiência\n4 - Disponibilidade\n5 - Histórico\n6 - Voltar")
+        atributo = int(input("Qual atributo deseja editar? "))
+        print("")
+        if atributo <1 or atributo >6:
+            print("Atributo inválido.")
+        elif atributo == 6:
+            break
+        else:
+            cpf = int(input("Digite o CPF do motorista que deseja editar: "))
+            Cadastro_motorista.atualizar_motorista(cpf, atributo)
 
 def menu_veiculos():
     while True:
@@ -36,6 +75,8 @@ def menu_veiculos():
             Cadastro_veiculos.remover_veiculo(placa)
         elif escolha == 5:
             break
+        else:
+            print("Escolha inválida")
 
 def menu_edicao_veiculos():
     while True:
