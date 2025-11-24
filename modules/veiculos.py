@@ -3,14 +3,42 @@ veiculos = []
 class Veiculo:
     '''É a classe dos veículos.'''
     def __init__(self, placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status):
-        self.placa = placa
+        self.__placa = placa
         self.marca = marca
-        self.modelo = modelo
+        self._modelo = modelo
         self.tipo = tipo
         self.ano = ano
         self.quilometragem = quilometragem
         self.consumo_medio = consumo_medio
         self.status = status
+
+    @property
+    def placa(self):
+        return self.__placa
+    
+    @placa.setter
+    def modelo(self, nova_placa):
+        if type(nova_placa) is str and len(nova_placa) > 0:
+            self.__placa = nova_placa
+        else:
+            print("Placa inválida.")
+    
+    @property
+    def modelo(self):
+        return self._modelo
+    
+    @modelo.setter
+    def modelo(self, novo_modelo):
+        if type(novo_modelo) is str and len(novo_modelo) > 0:
+            self._modelo = novo_modelo
+        else:
+            print("Modelo inválido.")
+
+    def __str__(self):
+        return f"Placa: {self.placa}\nMarca: {self.marca}\nModelo: {self._modelo}\nTipo: {self.tipo}\nAno: {self.ano}\nQuilometragem: {self.quilometragem}\nConsumo médio: {self.consumo_medio}\nStatus: {self.status}\n"
+    
+    def __eq__(self, outro):
+        return self.modelo == outro.modelo
 
 class Moto(Veiculo):
     '''É a classe das motos.'''
@@ -51,7 +79,7 @@ class Cadastro_veiculos:
         '''Recebe uma placa e retorna os dados do veículo com essa placa.'''
         for veiculo in veiculos:
             if placa == veiculo.placa:
-                print(f"\nPlaca: {veiculo.placa}\nMarca: {veiculo.marca}\nModelo: {veiculo.modelo}\nTipo: {veiculo.tipo}\nAno: {veiculo.ano}\nQuilometragem: {veiculo.quilometragem}\nConsumo médio: {veiculo.consumo_medio}\nStatus: {veiculo.status}\n")
+                print(veiculo)
 
     def atualizar_veiculo(placa, atributo):
         '''Recebe uma placa e atualiza os dados do veículo com essa placa.'''
