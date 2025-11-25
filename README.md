@@ -46,6 +46,7 @@ Conveyance-Manager/
 - Tipo de combustível
 - Litros
 - Valor
+- ID
 
 #### Métodos
 - Registrar abastecimento
@@ -60,6 +61,7 @@ Conveyance-Manager/
 - Origem
 - Distância
 - Destino
+- ID
 
 #### Métodos
 - Associar e registrar
@@ -75,6 +77,7 @@ Conveyance-Manager/
 - Tipo
 - Descrição
 - Custo
+- ID
 
 #### Métodos
 - Marcar veiculo
@@ -105,6 +108,32 @@ Conveyance-Manager/
 - Quilometragem
 - Consumo médio
 - Status
+
+#### Herança
+- É herdado por moto
+- É herdado por caminhão
+- É herdado por carro
+
+### Classe - Moto 🏍️
+
+> É a classe das motos.
+
+#### Herança
+- Herda da classe veículo
+
+### Classe - Carro 🚘
+
+> É a classe dos carros.
+
+#### Herança
+- Herda da classe veículo
+
+### Classe - Caminhão 🚚
+
+> É a classe das caminhão.
+
+#### Herança
+- Herda da classe veículo
 
 ### Classe - Cadastro de veículos 🪪
 
