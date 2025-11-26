@@ -12,12 +12,22 @@ def main():
         print(f"Escolha uma opção:\n1 - Abastecimento\n2 - Alocação\n3 - Manutenções\n4 - Cadastro de motoristas\n5 - Relatórios\n6 - Cadastro de veículos\n7 - Sair")
         escolha = int(input("Sua escolha: "))
         print("")
-        if escolha == 6:
-            menu_veiculos()
+        if escolha == 1:
+            print("Feature em desenvolvimento.\n")
+        elif escolha == 2:
+            print("Feature em desenvolvimento.\n")
+        elif escolha == 3:
+            print("Feature em desenvolvimento.\n")
         elif escolha == 4:
             menu_motoristas()
+        elif escolha == 5:
+            print("Feature em desenvolvimento.\n")
+        elif escolha == 6:
+            menu_veiculos()
         elif escolha == 7:
             break
+        else:
+            print("Escolha inválida.")
 
 def menu_motoristas():
     while True:
@@ -67,7 +77,7 @@ def menu_veiculos():
             Cadastro_veiculos.criar_veiculo()
         elif escolha == 2:
             placa = str(input("Qual a placa do veículo que deseja procurar? "))
-            Cadastro_veiculos.ler_veiculo(placa)
+            Cadastro_veiculos.mostrar_veiculo(placa)
         elif escolha == 3:
             menu_edicao_veiculos()
         elif escolha == 4:

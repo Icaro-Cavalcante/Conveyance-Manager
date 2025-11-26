@@ -1,4 +1,5 @@
-veiculos = []
+import sqlite3
+caminho = r"data\veiculos.db"
 
 class Veiculo:
     '''É a classe dos veículos.'''
@@ -59,6 +60,17 @@ class Cadastro_veiculos:
 
     # CRUD
 
+    def tabela_veiculos():
+        conexao = sqlite3.connect(caminho)
+        cursor = conexao.cursor()
+        cursor.execute('''
+        CREATE TABLE IF NOT EXISTS veiculos(placa TEXT UNIQUE, marca TEXT, modelo TEXT, tipo TEXT, ano INTERGER, quilometragem REAL, consumo_medio REAL, status TEXT)           
+        ''')
+
+        conexao.commit()
+        cursor.close()
+        conexao.close()
+
     def criar_veiculo():
         '''Recebe os dados do veículo e cadastra o motorista no banco de dados.'''
         placa = str(input("Digite a placa do veículo: "))
@@ -70,54 +82,114 @@ class Cadastro_veiculos:
         consumo_medio = float(input("Digite o consumo médio do veículo: "))
         status = str(input("Digite o status do veículo: "))
 
+        Cadastro_veiculos.tabela_veiculos()
+        conexao = sqlite3.connect(caminho)
+        cursor = conexao.cursor()
         novo_veiculo = Veiculo(placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status)
-        veiculos.append(novo_veiculo)
+        cursor.execute('''
+        INSERT OR IGNORE INTO veiculos (placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (novo_veiculo.placa, novo_veiculo.marca, novo_veiculo.modelo, novo_veiculo.tipo, novo_veiculo.ano, novo_veiculo.quilometragem, novo_veiculo.consumo_medio, novo_veiculo.status))
+
+        conexao.commit()
+        cursor.close()
+        conexao.close()
+        
         print("Veículo Criado\n")
-        pass
 
     def ler_veiculo(placa):
         '''Recebe uma placa e retorna os dados do veículo com essa placa.'''
-        for veiculo in veiculos:
-            if placa == veiculo.placa:
-                print(veiculo)
+        Cadastro_veiculos.tabela_veiculos()
+        conexao = sqlite3.connect(caminho)
+        cursor = conexao.cursor()
+        cursor.execute('SELECT * FROM veiculos WHERE placa = ?', (placa,))
+        veiculo = cursor.fetchone()
 
-    def atualizar_veiculo(placa, atributo):
+        cursor.close()
+        conexao.close()
+        return veiculo
+
+    def mostrar_veiculo(placa):
+        '''Recebe uma placa e mostra os dados do veículo com essa placa.'''
+        atributos = Cadastro_veiculos.ler_veiculo(placa)
+        if atributos == None:
+            print("O veículo com essa placa não existe.\n")
+        else:
+            outra_placa = atributos[0]
+            marca = atributos[1]
+            modelo = atributos[2]
+            tipo = atributos[3]
+            ano = atributos[4]
+            quilometragem = atributos[5]
+            consumo_medio = atributos[6]
+            status = atributos[7]
+
+            veiculo = Veiculo(outra_placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status)
+            print(veiculo)
+
+    def atualizar_veiculo(outra_placa, atributo):
         '''Recebe uma placa e atualiza os dados do veículo com essa placa.'''
-        for veiculo in veiculos:
-            if placa == veiculo.placa:
-                update = veiculo
-                if atributo == 1:
-                    nova_marca = str(input("Digite a nova marca: "))
-                    update.marca = nova_marca
-                elif atributo == 2:
-                    novo_modelo = str(input("Digite o novo modelo: "))
-                    update.modelo = novo_modelo
-                elif atributo == 3:
-                    novo_tipo = str(input("Digite o novo tipo: "))
-                    update.tipo = novo_tipo
-                elif atributo == 4:
-                    novo_ano = int(input("Digite o novo ano: "))
-                    update.ano = novo_ano
-                elif atributo == 5:
-                    nova_quilometragem = float(input("Digite a nova quilometragem: "))
-                    update.quilometragem = nova_quilometragem
-                elif atributo == 6:
-                    novo_consumo = float(input("Digite o novo consumo médio: "))
-                    update.consumo_medio = novo_consumo
-                elif atributo == 7:
-                    novo_status = str(input("Digite o novo status: "))
-                    update.status = novo_status
-                print("\nAtributo editado.\n")
+        veiculo = Cadastro_veiculos.ler_veiculo(outra_placa)
+        if veiculo == None:
+            print("O veículo com essa placa não existe.\n")
+        else:
+            conexao = sqlite3.connect(caminho)
+            cursor = conexao.cursor()
+            if atributo == 1:
+                nova_marca = str(input("Digite a nova marca: "))
+                cursor.execute('''UPDATE veiculos
+                            SET marca = ?
+                            WHERE placa = ?''', (nova_marca, outra_placa))
+            elif atributo == 2:
+                novo_modelo = str(input("Digite o novo modelo: "))
+                cursor.execute('''UPDATE veiculos
+                            SET modelo = ?
+                            WHERE placa = ?''', (novo_modelo, outra_placa))
+            elif atributo == 3:
+                novo_tipo = str(input("Digite o novo tipo: "))
+                cursor.execute('''UPDATE veiculos
+                            SET tipo = ?
+                            WHERE placa = ?''', (novo_tipo, outra_placa))
+            elif atributo == 4:
+                novo_ano = int(input("Digite o novo ano: "))
+                cursor.execute('''UPDATE veiculos
+                            SET ano = ?
+                            WHERE placa = ?''', (novo_ano, outra_placa))
+            elif atributo == 5:
+                nova_quilometragem = float(input("Digite a nova quilometragem: "))
+                cursor.execute('''UPDATE veiculos
+                            SET quilometragem = ?
+                            WHERE placa = ?''', (nova_quilometragem, outra_placa))
+            elif atributo == 6:
+                novo_consumo = float(input("Digite o novo consumo médio: "))
+                cursor.execute('''UPDATE veiculos
+                            SET consumo_medio = ?
+                            WHERE placa = ?''', (novo_consumo, outra_placa))
+            elif atributo == 7:
+                novo_status = str(input("Digite o novo status: "))
+                cursor.execute('''UPDATE veiculos
+                            SET status = ?
+                            WHERE placa = ?''', (novo_status, outra_placa))
+            conexao.commit()
+            cursor.close()
+            conexao.close()
+            print("\nAtributo editado.\n")
 
     def remover_veiculo(placa):
         '''Recebe uma placa e remove os dados do veículo com essa placa do banco de dados.'''
-        for veiculo in veiculos:
-            if placa == veiculo.placa:
-                remove = veiculo
-                index = veiculos.index(remove)
-                veiculos.pop(index)
-                print("\nVeículo removido\n")
-        pass
+        veiculo = Cadastro_veiculos.ler_veiculo(placa)
+        if veiculo == None:
+            print("O veículo com essa placa não existe.\n")
+        else:
+            conexao = sqlite3.connect(caminho)
+            cursor = conexao.cursor()
+            cursor.execute('''DELETE FROM veiculos
+                        WHERE placa = ?''', (placa,))
+            
+            conexao.commit()
+            cursor.close()
+            conexao.close()
+
+            print(f"\nVeículo com placa {placa} removido\n")
 
     # registar histórico de eventos (entrada, saída, manutenção, abastecimeto, desativação)
     
