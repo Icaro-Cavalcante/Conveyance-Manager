@@ -27,7 +27,7 @@ def main():
         elif escolha == 7:
             break
         else:
-            print("Escolha inválida.")
+            print("Escolha inválida.\n")
 
 def menu_motoristas():
     while True:
@@ -39,12 +39,12 @@ def menu_motoristas():
         if escolha == 1:
             Cadastro_motorista.criar_motorista()
         elif escolha == 2:
-            outro_cpf = int(input("Digite o CPF do motorista que deseja procurar: "))
-            Cadastro_motorista.ler_motorista(outro_cpf)
+            outro_cpf = str(input("Digite o CPF do motorista que deseja procurar: "))
+            Cadastro_motorista.mostrar_motorista(outro_cpf)
         elif escolha == 3:
             menu_edicao_motoristas()
         elif escolha == 4:
-            outro_cpf = int(input("Digite o CPF do motorista que deseja procurar: "))
+            outro_cpf = str(input("Digite o CPF do motorista que deseja procurar: "))
             Cadastro_motorista.remover_motorista(outro_cpf)
         elif escolha == 5:
             break
@@ -63,7 +63,7 @@ def menu_edicao_motoristas():
         elif atributo == 6:
             break
         else:
-            cpf = int(input("Digite o CPF do motorista que deseja editar: "))
+            cpf = str(input("Digite o CPF do motorista que deseja editar: "))
             Cadastro_motorista.atualizar_motorista(cpf, atributo)
 
 def menu_veiculos():

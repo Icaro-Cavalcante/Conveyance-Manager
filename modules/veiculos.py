@@ -55,9 +55,6 @@ class Carro(Veiculo):
 
 class Cadastro_veiculos:
     '''É a classe que cuida do CRUD dos veículos.'''
-    def __init__(self):
-        self.veiculo = []
-
     # CRUD
 
     def tabela_veiculos():
@@ -74,7 +71,7 @@ class Cadastro_veiculos:
     def criar_veiculo():
         '''Recebe os dados do veículo e cadastra o motorista no banco de dados.'''
         placa = str(input("Digite a placa do veículo: "))
-        marca = str(input("Digite a marca do carro: "))
+        marca = str(input("Digite a marca do veículo: "))
         modelo = str(input("Digite o modelo do veículo: "))
         tipo = str(input("Digite o tipo do veículo: "))
         ano = str(input("Digite o ano do veículo: "))
