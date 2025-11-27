@@ -1,4 +1,6 @@
-motoristas = []
+import sqlite3
+caminho = r"data\motoristas.db"
+
 
 class Motorista:
     '''É a classe dos motoristas.'''
@@ -29,61 +31,121 @@ class Motorista:
 
 class Cadastro_motorista:
     '''É a classe que cuida do CRUD dos motoristas.'''
-    def __init__(self):
-        self.motorista = []
-
     # CRUD
+
+    def tabela_motoristas():
+        conexao = sqlite3.connect(caminho)
+        cursor = conexao.cursor()
+
+        cursor.execute('''CREATE TABLE IF NOT EXISTS motoristas(nome TEXT, cpf TEXT UNIQUE, categoria_cnh TEXT, experiencia TEXT, disponibilidade TEXT, historico TEXT)''')
+
+        cursor.close()
+        conexao.close()
 
     def criar_motorista():
         '''Recebe os dados do motorista e cadastra o motorista no banco de dados.'''
+        Cadastro_motorista.tabela_motoristas()
         nome = str(input("Insira o nome do motorista: "))
-        cpf = int(input("Insira o CPF do motorista: "))
+        cpf = str(input("Insira o CPF do motorista: "))
         cnh = str(input("Insira a categoria da cnh do motorista: "))
         experiencia = str(input("Insira a experiencia do motorista: "))
         disponibilidade = str(input("Insira a disponibilidade do motorista: "))
         historico = str(input("Insira o histórico do motorista: "))
         novo_motorista = Motorista(nome, cpf, cnh, experiencia, disponibilidade, historico)
-        motoristas.append(novo_motorista)
+        
+        conexao = sqlite3.connect(caminho)
+        cursor = conexao.cursor()
+        cursor.execute('''INSERT OR IGNORE INTO motoristas (nome, cpf, categoria_cnh, experiencia, disponibilidade, historico) VALUES (?, ?, ?, ?, ?, ?)''', (novo_motorista.nome, novo_motorista.cpf, novo_motorista.categoria_cnh, novo_motorista.experiencia, novo_motorista.disponibilidade, novo_motorista.historico))
+
+        conexao.commit()
+        cursor.close()
+        conexao.close()
         print("\nMotorista cadastrado\n")
 
     def ler_motorista(outro_cpf):
         '''Recebe um CPF e retorna os dados do motorista com esse CPF.'''
-        for motorista in motoristas:
-            if motorista.cpf == outro_cpf:
-                print(motorista)
+        Cadastro_motorista.tabela_motoristas()
+        conexao = sqlite3.connect(caminho)
+        cursor = conexao.cursor()
+        cursor.execute('''SELECT * FROM motoristas WHERE cpf = ?''', (outro_cpf,))
+        motorista = cursor.fetchone()
+
+        cursor.close()
+        conexao.close()
+        return motorista
+    
+    def mostrar_motorista(outro_cpf):
+        '''Recebe um CPF e mostra os dados do motorista com esse CPF.'''
+        dados = Cadastro_motorista.ler_motorista(outro_cpf)
+        if dados == None:
+            print("O motorista com esse CPF não existe.\n")
+        else:
+            nome = dados[0]
+            cpf = dados[1]
+            cnh = dados[2]
+            experiencia = dados[3]
+            disponibilidade = dados[4]
+            historico = dados[5]
+
+            motorista = Motorista(nome, cpf, cnh, experiencia, disponibilidade, historico)
+            print(motorista)
+        
 
     def atualizar_motorista(outro_cpf, atributo):
         '''Recebe um CPF e atualiza os dados do motorista com esse CPF.'''
-        for motorista in motoristas:
-            if motorista.cpf == outro_cpf:
-                update = motorista
-                if atributo == 1:
-                    novo_nome = str(input("Digite o novo nome: "))
-                    update.nome = novo_nome
-                elif atributo == 2:
-                    nova_cnh = str(input("Digite a nova CNH: "))
-                    update.categoria_cnh = nova_cnh
-                elif atributo == 3:
-                    nova_experiencia = str(input("Digite a nova experiência: "))
-                    update.experiencia = nova_experiencia
-                elif atributo == 4:
-                    nova_disponibilidade = str(input("Digite a nova disponibilidade: "))
-                    update.disponibilidade = nova_disponibilidade
-                elif atributo == 5:
-                    novo_historico = str(input("Digite a novo histórico: "))
-                    update.historico = novo_historico
-                print("\nAtributo editado.\n")
+        motorista = Cadastro_motorista.ler_motorista(outro_cpf)
+        if motorista == None:
+            print("O motorista com esse CPF não existe.\n")
+        else:
+            conexao = sqlite3.connect(caminho)
+            cursor = conexao.cursor()
+            if atributo == 1:
+                novo_nome = str(input("Digite o novo nome: "))
+                cursor.execute('''UPDATE motoristas
+                               SET nome = ?
+                               WHERE cpf = ?''', (novo_nome, outro_cpf))
+            elif atributo == 2:
+                nova_cnh = str(input("Digite a nova CNH: "))
+                cursor.execute('''UPDATE motoristas
+                               SET categoria_cnh = ?
+                               WHERE cpf = ?''', (nova_cnh, outro_cpf))
+            elif atributo == 3:
+                nova_experiencia = str(input("Digite a nova experiência: "))
+                cursor.execute('''UPDATE motoristas
+                               SET experiencia = ?
+                               WHERE cpf = ?''', (nova_experiencia, outro_cpf))
+            elif atributo == 4:
+                nova_disponibilidade = str(input("Digite a nova disponibilidade: "))
+                cursor.execute('''UPDATE motoristas
+                               SET disponibiidade = ?
+                               WHERE cpf = ?''', (nova_disponibilidade, outro_cpf))
+            elif atributo == 5:
+                novo_historico = str(input("Digite a novo histórico: "))
+                
+                cursor.execute('''UPDATE motoristas
+                               SET historico = ?
+                               WHERE cpf = ?''', (novo_historico, outro_cpf))
+                
+            conexao.commit()
+            cursor.close()
+            conexao.close()
+            print("\nAtributo editado.\n")
 
     def remover_motorista(outro_cpf):
         '''Recebe um CPF e remove o motorista com esse CPF do banco de dados.'''
-        for motorista in motoristas:
-            if motorista.cpf == outro_cpf:
-                remove = motorista
-                index = motoristas.index(remove)
-                motoristas.pop(index)
-                print("\nMotorista removido\n")
-
-        pass
+        motorista = Cadastro_motorista.ler_motorista(outro_cpf)
+        if motorista == None:
+            print("O motorista com esse cpf não existe.\n")
+        else:
+            conexao = sqlite3.connect(caminho)
+            cursor = conexao.cursor()
+            cursor.execute('''DELETE from motoristas
+                           WHERE cpf = ?''', (outro_cpf,))
+            
+            conexao.commit()
+            cursor.close()
+            conexao.close()
+            print("\nMotorista deletado.\n")
 
     # Validação automática (só pode dirigir veiculos compatíveis com sua categoria)
 
