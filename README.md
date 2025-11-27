@@ -18,8 +18,8 @@ Conveyance-Manager/
 ├── main.py                      # Arquivo principal do sistema
 |
 ├── data                       
-|   ├── motoristas.json         # Dados dos motoristas
-|   └── veiculos.json           # Dados dos veículos
+|   ├── motoristas.db            # Dados dos motoristas
+|   └── veiculos.db              # Dados dos veículos
 |
 ├── config
 |   └── settings.json            # Arquivo json de configurações
