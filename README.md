@@ -24,7 +24,8 @@ Conveyance-Manager/
 ├── config
 |   └── settings.json            # Arquivo json de configurações
 |
-├── modules     
+├── modules
+|   ├── __init__.py              # Transforma o diretório em um pacote    
 |   ├── abastecimentos.py        # Classe utilizada para os abastecimentos
 |   ├── alocacao.py              # Classe utilizada para as alocações
 |   ├── manutencoes.py           # Classe utilizada para as manutenções
