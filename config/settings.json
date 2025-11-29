@@ -1,0 +1,19 @@
+{
+    "configs": 
+    {
+        "manutencoes":
+            {
+                "peso": 
+                    {
+                        "carro": 3,
+                        "moto": 1,
+                        "caminhao": 7
+                    },
+                "custo": 
+                    {
+                        "preventiva": 1000,
+                        "corretiva": 1500
+                    }
+            }
+    }
+}

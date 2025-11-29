@@ -17,7 +17,7 @@ def main():
         elif escolha == 2:
             print("Feature em desenvolvimento.\n")
         elif escolha == 3:
-            print("Feature em desenvolvimento.\n")
+            menu_manutencao()
         elif escolha == 4:
             menu_motoristas()
         elif escolha == 5:
@@ -28,6 +28,18 @@ def main():
             break
         else:
             print("Escolha inválida.\n")
+
+def menu_manutencao():
+    while True:
+        print("Menu de manutenções:")
+        print("-" * 20)
+        print("Escolha uma opção:\n1 - Calcular custo\n2 - Voltar")
+        escolha = int(input("Sua escolha: "))
+        print("")
+        if escolha == 1:
+            print(Manutencoes.calcular_custo("corretiva", "carro"))
+        elif escolha == 2:
+            break
 
 def menu_motoristas():
     while True:

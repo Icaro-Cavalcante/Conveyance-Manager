@@ -1,3 +1,6 @@
+import json
+path = r"config\settings.json"
+
 class Manutencoes:
     '''É a classe que cuida da manutenção de veículos.'''
     def __init__(self, data, tipo, descricao, id):
@@ -30,10 +33,15 @@ class Manutencoes:
     def __eq__(self, outro):
         return self.id == outro.id
 
-    def calcular_custo(self, tipo_veiculo):
-        '''Recebe o tipo de veículo, calcula o custo e retorna o resultado.'''
+    def calcular_custo(tipo, tipo_veiculo):
+        '''Recebe o tipo de manutenção e de veículo, calcula o custo e retorna o resultado.'''
         # calcular custo médio de manutenção por tipo de veículo
-        pass
+        with open(path, "r") as f:
+            data = json.load(f)
+        peso = data["configs"]["manutencoes"]["peso"][tipo_veiculo]
+        custo = data["configs"]["manutencoes"]["custo"][tipo]
+        custo_total = peso * custo
+        return custo_total
 
     # permitir marcar veículo como em manutenção e liberá-lo ao concluir o serviço
 
@@ -42,7 +50,7 @@ class Manutencoes:
         pass
 
     def liberar_veiculo(self,veiculo):
-        '''Recebe o veículo e altera seu status para (ativo).'''
+        '''Recebe o veículo e altera seu status para (inativo).'''
         pass
 
     def registrar_manutencao(self, data, tipo, custo, descricao):
