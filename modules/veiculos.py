@@ -1,5 +1,5 @@
 import sqlite3
-caminho = r"data\veiculos.db"
+data_veiculos = r"data\veiculos.db"
 
 class Veiculo:
     '''É a classe dos veículos.'''
@@ -58,7 +58,7 @@ class Cadastro_veiculos:
     # CRUD
 
     def tabela_veiculos():
-        conexao = sqlite3.connect(caminho)
+        conexao = sqlite3.connect(data_veiculos)
         cursor = conexao.cursor()
         cursor.execute('''
         CREATE TABLE IF NOT EXISTS veiculos(placa TEXT UNIQUE, marca TEXT, modelo TEXT, tipo TEXT, ano INTERGER, quilometragem REAL, consumo_medio REAL, status TEXT)           
@@ -80,7 +80,7 @@ class Cadastro_veiculos:
         status = str(input("Digite o status do veículo: "))
 
         Cadastro_veiculos.tabela_veiculos()
-        conexao = sqlite3.connect(caminho)
+        conexao = sqlite3.connect(data_veiculos)
         cursor = conexao.cursor()
         novo_veiculo = Veiculo(placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status)
         cursor.execute('''
@@ -96,7 +96,7 @@ class Cadastro_veiculos:
     def ler_veiculo(placa):
         '''Recebe uma placa e retorna os dados do veículo com essa placa.'''
         Cadastro_veiculos.tabela_veiculos()
-        conexao = sqlite3.connect(caminho)
+        conexao = sqlite3.connect(data_veiculos)
         cursor = conexao.cursor()
         cursor.execute('SELECT * FROM veiculos WHERE placa = ?', (placa,))
         veiculo = cursor.fetchone()
@@ -129,7 +129,7 @@ class Cadastro_veiculos:
         if veiculo == None:
             print("O veículo com essa placa não existe.\n")
         else:
-            conexao = sqlite3.connect(caminho)
+            conexao = sqlite3.connect(data_veiculos)
             cursor = conexao.cursor()
             if atributo == 1:
                 nova_marca = str(input("Digite a nova marca: "))
@@ -177,7 +177,7 @@ class Cadastro_veiculos:
         if veiculo == None:
             print("O veículo com essa placa não existe.\n")
         else:
-            conexao = sqlite3.connect(caminho)
+            conexao = sqlite3.connect(data_veiculos)
             cursor = conexao.cursor()
             cursor.execute('''DELETE FROM veiculos
                         WHERE placa = ?''', (placa,))
