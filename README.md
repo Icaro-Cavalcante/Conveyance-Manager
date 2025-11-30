@@ -19,6 +19,7 @@ Conveyance-Manager/
 |
 ├── data                       
 |   ├── motoristas.db            # Dados dos motoristas
+|   ├── manutencoes.db           # Dados das manutenções
 |   └── veiculos.db              # Dados dos veículos
 |
 ├── config
