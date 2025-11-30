@@ -33,13 +33,28 @@ def menu_manutencao():
     while True:
         print("Menu de manutenções:")
         print("-" * 20)
-        print("Escolha uma opção:\n1 - Calcular custo\n2 - Voltar")
+        print("Escolha uma opção:\n1 - Calcular custo\n2 - Realizar manutenção\n3 - Liberar veículo\n4 - Procurar manutenção\n5 - Voltar")
         escolha = int(input("Sua escolha: "))
         print("")
         if escolha == 1:
-            print(Manutencoes.calcular_custo("corretiva", "carro"))
+            tipo = str(input("Qual o tipo de manutenção(Corretiva/Preventiva)? "))
+            tipo_veiculo = str(input("Qual o tipo de veículo(Carro/Moto/Caminhão)? "))
+            tipo = tipo.lower()
+            tipo_veiculo = tipo_veiculo.lower()
+            custo = Manutencoes.calcular_custo(tipo, tipo_veiculo)
+            print(f"\nA manutenção custa R${custo}")
         elif escolha == 2:
+            placa = str(input("\nQual  placa do veículo que deseja colocar em manutenção? "))
+            Manutencoes.registrar_manutencao(placa)
+        elif escolha == 3:
+            placa = str(input("\nInforme a placa do veículo: "))
+            Manutencoes.liberar_veiculo(placa)
+        elif escolha == 4:
+            id = int(input("\nInsira o ID da manutenção: "))
+            Manutencoes.consultar_manutenao(id)
+        elif escolha == 5:
             break
+
 
 def menu_motoristas():
     while True:
