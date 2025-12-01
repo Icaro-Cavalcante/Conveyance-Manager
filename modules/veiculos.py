@@ -121,7 +121,7 @@ class Cadastro_veiculos:
             status = atributos[7]
 
             veiculo = Veiculo(outra_placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status)
-            print(veiculo)
+            return veiculo
 
     def atualizar_veiculo(outra_placa, atributo):
         '''Recebe uma placa e atualiza os dados do veículo com essa placa.'''

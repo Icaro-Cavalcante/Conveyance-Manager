@@ -15,7 +15,7 @@ def main():
         if escolha == 1:
             print("Feature em desenvolvimento.\n")
         elif escolha == 2:
-            print("Feature em desenvolvimento.\n")
+            menu_alocacao()
         elif escolha == 3:
             menu_manutencao()
         elif escolha == 4:
@@ -28,6 +28,23 @@ def main():
             break
         else:
             print("Escolha inválida.\n")
+
+def menu_alocacao():
+    while True:
+        print("Menu de alocações")
+        print("-" * 20)
+        print(f"Escolha uma opção:\n1 - Realizar alocação\n2 - Procurar alocação\n3 - Voltar")
+        escolha = int(input("Digite sua escolha: "))
+        print("")
+        if escolha == 1:
+            Alocacao.associar_registrar()
+        elif escolha == 2:
+            print("Feature em desenvolvimento.\n")
+        elif escolha == 3:
+            break
+        else:
+            print("Escolha inválida.\n")
+
 
 def menu_manutencao():
     while True:
@@ -67,7 +84,7 @@ def menu_motoristas():
             Cadastro_motorista.criar_motorista()
         elif escolha == 2:
             outro_cpf = str(input("Digite o CPF do motorista que deseja procurar: "))
-            Cadastro_motorista.mostrar_motorista(outro_cpf)
+            print(Cadastro_motorista.mostrar_motorista(outro_cpf))
         elif escolha == 3:
             menu_edicao_motoristas()
         elif escolha == 4:
@@ -104,7 +121,7 @@ def menu_veiculos():
             Cadastro_veiculos.criar_veiculo()
         elif escolha == 2:
             placa = str(input("Qual a placa do veículo que deseja procurar? "))
-            Cadastro_veiculos.mostrar_veiculo(placa)
+            print(Cadastro_veiculos.mostrar_veiculo(placa))
         elif escolha == 3:
             menu_edicao_veiculos()
         elif escolha == 4:
