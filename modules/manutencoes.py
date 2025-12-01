@@ -105,7 +105,7 @@ class Manutencoes:
         conexao.close()
 
     def liberar_veiculo(placa_veiculo):
-        '''Recebe o veículo e altera seu status para (inativo).'''
+        '''Recebe o veículo e altera seu status para (ativo).'''
         conexao = sqlite3.connect(data_veiculos)
         cursor = conexao.cursor()
         veiculo = Cadastro_veiculos.ler_veiculo(placa_veiculo)
@@ -116,7 +116,7 @@ class Manutencoes:
         else:
             cursor.execute('''UPDATE veiculos
                            SET status = ?
-                           WHERE placa = ?''', ("inativo", placa_veiculo))
+                           WHERE placa = ?''', ("ativo", placa_veiculo))
             print("O veículo agora saiu da manutenção.\n")
 
         conexao.commit()

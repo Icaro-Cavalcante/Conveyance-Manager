@@ -88,7 +88,7 @@ class Cadastro_motorista:
             historico = dados[5]
 
             motorista = Motorista(nome, cpf, cnh, experiencia, disponibilidade, historico)
-            print(motorista)
+            return motorista
         
 
     def atualizar_motorista(outro_cpf, atributo):
