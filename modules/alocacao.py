@@ -76,17 +76,21 @@ class Alocacao():
                 data = agora.strftime("%d/%m/%Y. Às %H:%M:%S.")
                 id = int(input("Digite o ID: "))
                 nova_alocacao = Alocacao(origem, destino, data, distancia, id, motorista, veiculo)
+                e_valido = nova_alocacao.validar_cnh()
 
-                conexao = sqlite3.connect(data_alocacao)
-                cursor = conexao.cursor()
-                cursor.execute('''INSERT OR IGNORE INTO alocacoes
-                               (origem, destino, data, distancia, id, motorista, veiculo)
-                               VALUES (?, ?, ?, ?, ?, ?, ?)''', (nova_alocacao.origem, nova_alocacao.destino, nova_alocacao.data, nova_alocacao.distancia, nova_alocacao.id, nova_alocacao.motorista, nova_alocacao.veiculo))
-                
-                conexao.commit()
-                nova_alocacao.atualizar_quilometragem()
-                cursor.close()
-                conexao.close()
+                if e_valido == False:
+                    print("A categoria da CNH é incompatível com o Veículo.")
+                else:
+                    conexao = sqlite3.connect(data_alocacao)
+                    cursor = conexao.cursor()
+                    cursor.execute('''INSERT OR IGNORE INTO alocacoes
+                                (origem, destino, data, distancia, id, motorista, veiculo)
+                                VALUES (?, ?, ?, ?, ?, ?, ?)''', (nova_alocacao.origem, nova_alocacao.destino, nova_alocacao.data, nova_alocacao.distancia, nova_alocacao.id, nova_alocacao.motorista, nova_alocacao.veiculo))
+                    
+                    conexao.commit()
+                    nova_alocacao.atualizar_quilometragem()
+                    cursor.close()
+                    conexao.close()
                 
     def atualizar_quilometragem(self):
         '''Recebe a distancia da viagem, a placa do veiculo e atualiza a quilometragem do veículo após a viagem.'''
@@ -121,3 +125,17 @@ class Alocacao():
             else:
                 permitido = True
             return permitido
+        
+    def validar_cnh(self):
+        cnh = Cadastro_motorista.mostrar_motorista(self.motorista).categoria_cnh
+        tipo = Cadastro_veiculos.mostrar_veiculo(self.veiculo).tipo
+
+        if cnh.upper() == "A" and tipo.lower() == "moto":
+            valido = True
+        elif cnh.upper() == "B" and tipo.lower() == "carro":
+            valido = True
+        elif cnh.upper() == "C" and tipo.lower() == "caminhao":
+            valido = True
+        else:
+            valido = False
+        return valido

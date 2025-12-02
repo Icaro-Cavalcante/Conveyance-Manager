@@ -18,6 +18,7 @@ Conveyance-Manager/
 ├── main.py                      # Arquivo principal do sistema
 |
 ├── data                       
+|   ├── alocacoes.db             # Dados dos motoristas
 |   ├── motoristas.db            # Dados dos motoristas
 |   ├── manutencoes.db           # Dados das manutenções
 |   └── veiculos.db              # Dados dos veículos
