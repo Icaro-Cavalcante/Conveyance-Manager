@@ -4,7 +4,7 @@
 
 ## Sobre 📚
 
-- O Conveyance Manager (do inglês "gerenciador de transportes") é um projeto da disciplina de Programação orientada a objetos da Universidade Federal do Cariri (UFCA), a qual é ministrada pelo professor Jayr Pereira. O objetivo é um desenvolver sistema de linha de comando (CLI) ou uma API mínima (FastAPI ou Flask, opcional) para gerenciar a frota de veículos de uma empresa de transporte. Nele são necessárias as funcionalidades de cadastro de veículos, controle de manutenções, alocação a motoristas, registro de abastecimentos, cálculo de custos médios e relatórios de desempenho.
+- O Conveyance Manager (do inglês "gerenciador de transportes") é um projeto da disciplina de Programação orientada a objetos da Universidade Federal do Cariri (UFCA), a qual é ministrada pelo professor Jayr Pereira. O objetivo é um desenvolver sistema de linha de comando (CLI) para gerenciar a frota de veículos de uma empresa de transporte. Nele são necessárias as funcionalidades de cadastro de veículos, controle de manutenções, alocação a motoristas, registro de abastecimentos, cálculo de custos médios e relatórios de desempenho.
 
 
 ## 📋 Pré-requisitos
@@ -62,14 +62,19 @@ Conveyance-Manager/
 
 #### Atributos
 - Origem
+- Data
 - Distância
 - Destino
 - ID
+- Motorista
+- Veículo
 
 #### Métodos
 - Associar e registrar
 - Atualizar quilometragem
-- Bloquear alocação
+- Tabela de alocações
+- Permissão para alocação
+- Validar CNH
 
 ### Classe - Manutenção 🔧
 
@@ -83,6 +88,9 @@ Conveyance-Manager/
 - ID
 
 #### Métodos
+- Tabela de manutenções
+- Ler manutenção
+- Consultar manutenção
 - Marcar veiculo
 - Liberar veiculo
 - Registrar manutenção
@@ -93,6 +101,7 @@ Conveyance-Manager/
 > É a classe que cria os relatórios.
 
 #### Métodos
+- Relatório inicial
 - Gerar relatório do custo de manutenção
 - Gerar ranking veículos
 - Gerar relatório viagens
@@ -146,9 +155,11 @@ Conveyance-Manager/
 - Veículo
 
 #### Métodos
+- Tabela de veículos
 - Criar veículo
 - Ler veículo
-- Atualizar veículo.
+- Mostrar veículo
+- Atualizar veículo
 - Remover veículo
 - Registrar histórico
 
@@ -172,8 +183,10 @@ Conveyance-Manager/
 - Motorista
 
 #### Métodos
+- Tabela de motoristas
 - Criar motorista
 - Ler motorista
+- Mostrar motorista
 - Atualizar motorista
 - Remover motorista
 
@@ -185,6 +198,7 @@ Conveyance-Manager/
 - Cadastro de veículos --> Cria, lê, atualiza, remove e registra o histórico --> Veículo
 - Manutenção --> Marca, libera e associa --> Veículo
 - Alocação --> Associa veículo --> Motorista
+- Veículo --> É associado --> Motorista
 - Alocação --> Atualiza quilometragem --> Veículo
 - Abastecimento --> Calcula consumo médio --> Veículo
 
