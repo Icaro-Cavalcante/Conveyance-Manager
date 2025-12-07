@@ -27,6 +27,7 @@ class Relatorio():
             quilometragem = veiculo[5]
             consumo_medio = veiculo[6]
             status = veiculo[7]
+            combustivel = veiculo[8]
 
             if status.lower() == "ativo":
                 qtd_ativo += 1
@@ -38,7 +39,7 @@ class Relatorio():
                 qtd_manutencao += 1
                 lista_manutencao.append(placa)
 
-            print(f"Placa: {placa}\nMarca: {marca}\nModelo: {modelo}\nTipo: {tipo}\nAno: {ano}\nQuilometragem: {quilometragem}\nConsumo médio: {consumo_medio}\nStatus: {status}\n")
+            print(f"Placa: {placa}\nMarca: {marca}\nModelo: {modelo}\nTipo: {tipo}\nAno: {ano}\nQuilometragem: {quilometragem}\nConsumo médio: {consumo_medio}\nStatus: {status}\nCombustível: {combustivel}\n")
 
         print(f"{qtd_ativo} veículos ativos: {lista_ativo}\n{qtd_inativo} veículos inativos: {lista_inativo}\n{qtd_manutencao} veículos em manutenção: {lista_manutencao}")
 
