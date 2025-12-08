@@ -3,7 +3,7 @@ data_veiculos = r"data\veiculos.db"
 
 class Veiculo:
     '''É a classe dos veículos.'''
-    def __init__(self, placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status):
+    def __init__(self, placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status, combustivel):
         self.__placa = placa
         self.marca = marca
         self._modelo = modelo
@@ -12,6 +12,7 @@ class Veiculo:
         self.quilometragem = quilometragem
         self.consumo_medio = consumo_medio
         self.status = status
+        self.combustivel = combustivel
 
     @property
     def placa(self):
@@ -36,7 +37,7 @@ class Veiculo:
             print("Modelo inválido.")
 
     def __str__(self):
-        return f"Placa: {self.placa}\nMarca: {self.marca}\nModelo: {self._modelo}\nTipo: {self.tipo}\nAno: {self.ano}\nQuilometragem: {self.quilometragem}\nConsumo médio: {self.consumo_medio}\nStatus: {self.status}\n"
+        return f"Placa: {self.placa}\nMarca: {self.marca}\nModelo: {self._modelo}\nTipo: {self.tipo}\nAno: {self.ano}\nQuilometragem: {self.quilometragem}\nConsumo médio: {self.consumo_medio}\nStatus: {self.status}\nCombustível: {self.combustivel}\n"
     
     def __eq__(self, outro):
         return self.modelo == outro.modelo
@@ -61,7 +62,7 @@ class Cadastro_veiculos:
         conexao = sqlite3.connect(data_veiculos)
         cursor = conexao.cursor()
         cursor.execute('''
-        CREATE TABLE IF NOT EXISTS veiculos(placa TEXT UNIQUE, marca TEXT, modelo TEXT, tipo TEXT, ano INTERGER, quilometragem REAL, consumo_medio REAL, status TEXT)           
+        CREATE TABLE IF NOT EXISTS veiculos(placa TEXT UNIQUE, marca TEXT, modelo TEXT, tipo TEXT, ano INTERGER, quilometragem REAL, consumo_medio REAL, status TEXT, combustivel REAL)           
         ''')
 
         conexao.commit()
@@ -78,14 +79,15 @@ class Cadastro_veiculos:
         quilometragem = float(input("Digite a quilometragem do veículo: "))
         consumo_medio = float(input("Digite o consumo médio do veículo: "))
         status = str(input("Digite o status do veículo: "))
+        combustivel = float(input("Digite o combustivel do veículo: "))
 
         Cadastro_veiculos.tabela_veiculos()
         conexao = sqlite3.connect(data_veiculos)
         cursor = conexao.cursor()
-        novo_veiculo = Veiculo(placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status)
+        novo_veiculo = Veiculo(placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status, combustivel)
         cursor.execute('''
-        INSERT OR IGNORE INTO veiculos (placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        ''', (novo_veiculo.placa, novo_veiculo.marca, novo_veiculo.modelo, novo_veiculo.tipo, novo_veiculo.ano, novo_veiculo.quilometragem, novo_veiculo.consumo_medio, novo_veiculo.status))
+        INSERT OR IGNORE INTO veiculos (placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status, combustivel) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (novo_veiculo.placa, novo_veiculo.marca, novo_veiculo.modelo, novo_veiculo.tipo, novo_veiculo.ano, novo_veiculo.quilometragem, novo_veiculo.consumo_medio, novo_veiculo.status, novo_veiculo.combustivel))
 
         conexao.commit()
         cursor.close()
@@ -119,8 +121,9 @@ class Cadastro_veiculos:
             quilometragem = atributos[5]
             consumo_medio = atributos[6]
             status = atributos[7]
+            combustivel = atributos[8]
 
-            veiculo = Veiculo(outra_placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status)
+            veiculo = Veiculo(outra_placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status, combustivel)
             return veiculo
 
     def atualizar_veiculo(outra_placa, atributo):
@@ -166,6 +169,11 @@ class Cadastro_veiculos:
                 cursor.execute('''UPDATE veiculos
                             SET status = ?
                             WHERE placa = ?''', (novo_status, outra_placa))
+            elif atributo == 8:
+                novo_combustivel = str(input("Digite o novo combustivel: "))
+                cursor.execute('''UPDATE veiculos
+                            SET combustivel = ?
+                            WHERE placa = ?''', (novo_combustivel, outra_placa))
             conexao.commit()
             cursor.close()
             conexao.close()
