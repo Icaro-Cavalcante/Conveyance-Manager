@@ -6,7 +6,6 @@ from modules.relatorios import Relatorio
 from modules.veiculos import *
 
 def main():
-    '''Função principal.'''
     while True:
         print(f"Conveyance Manager")
         print("-" * 20)
@@ -22,7 +21,7 @@ def main():
         elif escolha == 4:
             menu_motoristas()
         elif escolha == 5:
-            menu_relatorios()
+            print("Feature em desenvolvimento.\n")
         elif escolha == 6:
             menu_veiculos()
         elif escolha == 7:
@@ -30,23 +29,7 @@ def main():
         else:
             print("Escolha inválida.\n")
 
-def menu_relatorios():
-    '''Menu para interagir com os relatórios.'''
-    while True:
-        print("Menu de relatórios")
-        print("-" * 20)
-        print(f"Escolha uma opção:\n1 - Relatório inicial\n2 - Voltar")
-        escolha = int(input("Digite sua escolha: "))
-        print("")
-        if escolha == 1:
-            Relatorio.relatorio_inicial()
-        elif escolha == 2:
-            break
-        else:
-            print("Escolha inválida")
-
 def menu_alocacao():
-    '''Menu para interagir com o sistema de alocação.'''
     while True:
         print("Menu de alocações")
         print("-" * 20)
@@ -64,7 +47,6 @@ def menu_alocacao():
 
 
 def menu_manutencao():
-    '''Menu para interagir com o sistema de manutenção.'''
     while True:
         print("Menu de manutenções:")
         print("-" * 20)
@@ -90,8 +72,8 @@ def menu_manutencao():
         elif escolha == 5:
             break
 
+
 def menu_motoristas():
-    '''Menu para interagir com o sistema de motoristas.'''
     while True:
         print("Menu de motoristas:")
         print("-" * 20)
@@ -114,7 +96,6 @@ def menu_motoristas():
             print("Escolha inválida")
 
 def menu_edicao_motoristas():
-    '''Menu para editar os motoristas.'''
     while True:
         print("Menu de edição de motoristas:")
         print("-" * 20)
@@ -130,7 +111,6 @@ def menu_edicao_motoristas():
             Cadastro_motorista.atualizar_motorista(cpf, atributo)
 
 def menu_veiculos():
-    '''Menu para interagir com o sistema de veículos.'''
     while True:
         print("Menu de veículos")
         print(f"-" * 20)
@@ -153,15 +133,14 @@ def menu_veiculos():
             print("Escolha inválida")
 
 def menu_edicao_veiculos():
-    '''Menu para editar os veículos.'''
     while True:
         print("Menu de edição de veículos")
         print(f"-" * 20)
-        print("O que deseja editar?\n1 - Marca\n2 - Modelo\n3 - Tipo\n4 - Ano\n5 - Quilometragem\n6 - Consumo médio\n7 - Status\n8 - Combustível\n9 - Voltar\n")
+        print("O que deseja editar?\n1 - Marca\n2 - Modelo\n3 - Tipo\n4 - Ano\n5 - Quilometragem\n6 - Consumo médio\n7 - Status\n8 - Voltar\n")
         atributo = int(input("Qual atributo deseja editar? "))
-        if atributo >9 or atributo <1:
+        if atributo >8 or atributo <1:
             print("Selecione um atributo válido.")
-        elif atributo == 9:
+        elif atributo == 8:
             break
         else:
             placa = str(input("Qual a placa do veículo que deseja editar? "))

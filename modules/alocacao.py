@@ -61,7 +61,7 @@ class Alocacao():
 
         if permissao == False:
             print("Alocação negada.")
-        elif permissao:
+        else:
             cpf = str(input("Digite o CPF do motorista: "))
             existe = Cadastro_motorista.ler_motorista(cpf)
             if existe == None:
@@ -77,12 +77,9 @@ class Alocacao():
                 id = int(input("Digite o ID: "))
                 nova_alocacao = Alocacao(origem, destino, data, distancia, id, motorista, veiculo)
                 e_valido = nova_alocacao.validar_cnh()
-                combustivel_validado = nova_alocacao.validar_combustivel()
 
                 if e_valido == False:
                     print("A categoria da CNH é incompatível com o Veículo.")
-                elif combustivel_validado == False:
-                    print("Não há combustível suficiente para realizar essa viagem.")
                 else:
                     conexao = sqlite3.connect(data_alocacao)
                     cursor = conexao.cursor()
@@ -94,7 +91,6 @@ class Alocacao():
                     nova_alocacao.atualizar_quilometragem()
                     cursor.close()
                     conexao.close()
-                    print("Alocação registrada.")
                 
     def atualizar_quilometragem(self):
         '''Recebe a distancia da viagem, a placa do veiculo e atualiza a quilometragem do veículo após a viagem.'''
@@ -143,12 +139,3 @@ class Alocacao():
         else:
             valido = False
         return valido
-    
-    def validar_combustivel(self):
-        veiculo = Cadastro_veiculos.mostrar_veiculo(self.veiculo)
-        quilometros_possiveis = veiculo.consumo_medio * veiculo.combustivel
-        if quilometros_possiveis < self.distancia:
-            combustivel_validado = False
-        else:
-            combustivel_validado = True
-        return combustivel_validado
