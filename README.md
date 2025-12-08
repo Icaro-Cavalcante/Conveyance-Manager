@@ -18,7 +18,8 @@ Conveyance-Manager/
 ├── main.py                      # Arquivo principal do sistema
 |
 ├── data                       
-|   ├── alocacoes.db             # Dados dos motoristas
+|   ├── abastecimentos.db        # Dados dos abastecimentos
+|   ├── alocacoes.db             # Dados das alocações
 |   ├── motoristas.db            # Dados dos motoristas
 |   ├── manutencoes.db           # Dados das manutenções
 |   └── veiculos.db              # Dados dos veículos
@@ -49,10 +50,15 @@ Conveyance-Manager/
 - Tipo de combustível
 - Litros
 - Valor
+- Veículo
 - ID
 
 #### Métodos
+- Tabela de abastecimentos
 - Registrar abastecimento
+- Calcular valor
+- Abastecer veículo
+- Atualizar status
 - Calcular consumo
 - Consumo padrão
 
@@ -120,6 +126,7 @@ Conveyance-Manager/
 - Quilometragem
 - Consumo médio
 - Status
+- Combustível
 
 #### Herança
 - É herdado por moto
@@ -200,6 +207,6 @@ Conveyance-Manager/
 - Alocação --> Associa veículo --> Motorista
 - Veículo --> É associado --> Motorista
 - Alocação --> Atualiza quilometragem --> Veículo
-- Abastecimento --> Calcula consumo médio --> Veículo
+- Abastecimento --> Calcula consumo médio, abastece, atualiza status --> Veículo
 
 > Mais detalhes sobre os métodos estão nas docstrings do código.
