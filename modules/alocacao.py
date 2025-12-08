@@ -2,6 +2,7 @@ from .veiculos import *
 from .motoristas import *
 import sqlite3
 from datetime import datetime
+from .abastecimentos import Abastecimento
 data_veiculo = r"data\veiculos.db"
 data_motorista = r"data\motoristas.db"
 data_alocacao = r"data\alocacoes.db"
@@ -57,10 +58,11 @@ class Alocacao():
         '''Recebe origem, destino, distância, placa do veículo e CPF do motorista e associa o veículo a um motorista e registra a viagem.'''
         Alocacao.tabela_alocacao()
         placa = str(input("Digite a placa do veiculo: "))
+        Abastecimento.atualizar_status(placa, False)
         permissao = Alocacao.permissao_alocacao(placa)
 
         if permissao == False:
-            print("Alocação negada.")
+            print("Alocação negada. O veículo está inativo ou em manutenção.")
         elif permissao:
             cpf = str(input("Digite o CPF do motorista: "))
             existe = Cadastro_motorista.ler_motorista(cpf)
@@ -118,7 +120,6 @@ class Alocacao():
 
     def permissao_alocacao(placa):
         '''Recebe a placa do veículo e caso esteja em manutenção ou inativo, bloqueia a alocação. Do contrário, permite.'''
-        # Bloquear alocação se o veículo estiver em manutenção ou inativo.
         veiculo = Cadastro_veiculos.ler_veiculo(placa)
         if veiculo == None:
             print("O veículo com essa placa não existe.")

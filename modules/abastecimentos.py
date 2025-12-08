@@ -64,6 +64,7 @@ class Abastecimento:
                            VALUES (?, ?, ?, ?, ?, ?)''', (novo_abastecimento.data, novo_abastecimento.tipo_combustivel, novo_abastecimento.litros, novo_abastecimento.valor, novo_abastecimento.veiculo, novo_abastecimento.id))
             
             novo_abastecimento.abastecer_veiculo()
+            Abastecimento.atualizar_status(novo_abastecimento.veiculo, False)
             conexao.commit()
             cursor.close()
             conexao.close()
@@ -100,3 +101,24 @@ class Abastecimento:
         conexao.commit()
         cursor.close()
         conexao.close()
+
+    def atualizar_status(placa, liberar_manutencao):
+        veiculo = Cadastro_veiculos.mostrar_veiculo(placa)
+        if liberar_manutencao or veiculo.status != "manutencao":
+            combustivel = veiculo.combustivel
+            conexao = sqlite3.connect(data_veiculo)
+            cursor = conexao.cursor()
+
+            if combustivel == 0:
+                status = "inativo"
+            else:
+                status = "ativo"
+            cursor.execute('''UPDATE veiculos
+                        SET status = ?
+                        WHERE placa = ?''', (status, placa))
+            conexao.commit()
+            cursor.close()
+            conexao.close()
+        else:
+            print("O veículo ainda está em manutenção.")
+
