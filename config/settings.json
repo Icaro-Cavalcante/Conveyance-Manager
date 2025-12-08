@@ -14,6 +14,25 @@
                         "preventiva": 1000,
                         "corretiva": 1500
                     }
+            },
+        "abastecimentos":
+            {
+                "consumo_medio": {
+                    "carro": {
+                        "minimo": 10,
+                        "maximo": 60
+                    },
+                    "moto": {
+                        "minimo": 20,
+                        "maximo": 90
+                    },
+                    "caminhao": {
+                        "minimo": 2,
+                        "maximo": 15
+                    }
+
+                },
+                "valor_gasolina": 6.05
             }
-    }
+    }   
 }

@@ -14,7 +14,7 @@ def main():
         escolha = int(input("Sua escolha: "))
         print("")
         if escolha == 1:
-            print("Feature em desenvolvimento.\n")
+            menu_abastecimentos()
         elif escolha == 2:
             menu_alocacao()
         elif escolha == 3:
@@ -29,6 +29,21 @@ def main():
             break
         else:
             print("Escolha inválida.\n")
+
+def menu_abastecimentos():
+    '''Menu para interagir com o sistema de abastecimentos.'''
+    while True:
+        print("Menu de abastecimentos")
+        print("-" * 20)
+        print(f"Escolha uma opção:\n1 - Abastecer\n2 - Voltar")
+        escolha = int(input("Digite sua escolha: "))
+        print("")
+        if escolha == 1:
+            Abastecimento.registrar_abastecimento()
+        elif escolha == 2:
+            break
+        else:
+            print("Escolha inválida")
 
 def menu_relatorios():
     '''Menu para interagir com os relatórios.'''
