@@ -2,6 +2,7 @@ import json
 import sqlite3
 from .veiculos import *
 from datetime import datetime
+from .abastecimentos import Abastecimento
 caminho_json = r"config\settings.json"
 data_veiculos = r"data\veiculos.db"
 data_manutencao = r"data\manutencoes.db"
@@ -77,7 +78,7 @@ class Manutencoes:
 
     def calcular_custo(tipo, tipo_veiculo):
         '''Recebe o tipo de manutenção e de veículo, calcula o custo e retorna o resultado.'''
-        # calcular custo médio de manutenção por tipo de veículo
+        tipo_veiculo = tipo_veiculo.lower()
         with open(caminho_json, "r") as f:
             data = json.load(f)
         peso = data["configs"]["manutencoes"]["peso"][tipo_veiculo]
@@ -114,9 +115,7 @@ class Manutencoes:
         elif veiculo[7] == "inativo" or veiculo[7] == "ativo":
             print("O veículo informado não está em manutenção.")
         else:
-            cursor.execute('''UPDATE veiculos
-                           SET status = ?
-                           WHERE placa = ?''', ("ativo", placa_veiculo))
+            Abastecimento.atualizar_status(placa_veiculo, True)
             print("O veículo agora saiu da manutenção.\n")
 
         conexao.commit()
