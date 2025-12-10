@@ -4,8 +4,7 @@ from .veiculos import *
 from datetime import datetime
 from .abastecimentos import Abastecimento
 caminho_json = r"config\settings.json"
-data_veiculos = r"data\veiculos.db"
-data_manutencao = r"data\manutencoes.db"
+database = r"data\dados.db"
 
 class Manutencoes:
     '''É a classe que cuida da manutenção de veículos.'''
@@ -42,7 +41,7 @@ class Manutencoes:
     def ler_manutencao(id):
         '''Recebe o ID e retorna os dados da manutenção'''
         Manutencoes.tabela_manutencao()
-        conexao = sqlite3.connect(data_manutencao)
+        conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         cursor.execute('''SELECT * FROM manutencoes where id = ?''', (id,))
 
@@ -68,7 +67,7 @@ class Manutencoes:
     
     def tabela_manutencao():
         '''Cria a tabela manutenção no banco de dados, caso ela não exista.'''
-        conexao = sqlite3.connect(data_manutencao)
+        conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         cursor.execute('''CREATE TABLE IF NOT EXISTS manutencoes
                        (data TEXT, tipo TEXT, custo REAL, descricao TEXT, id INTENGER)''')
@@ -90,11 +89,16 @@ class Manutencoes:
 
     def marcar_veiculo(placa_veiculo):
         '''Recebe a placa do veículo e altera seu status para (manutencao).'''
-        conexao = sqlite3.connect(data_veiculos)
+        conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         veiculo = Cadastro_veiculos.ler_veiculo(placa_veiculo)
+        status = Cadastro_veiculos.mostrar_veiculo(placa_veiculo).status
         if veiculo == None:
             print("O veículo com essa placa não existe")
+            return False
+        elif status == "manuencao":
+            print("O veículo já está em manutenção.")
+            return False
         else:
             cursor.execute('''UPDATE veiculos
                            SET status = ?
@@ -104,12 +108,15 @@ class Manutencoes:
         conexao.commit()
         cursor.close()
         conexao.close()
+        return True
 
     def liberar_veiculo(placa_veiculo):
         '''Recebe o veículo e altera seu status para (ativo).'''
-        conexao = sqlite3.connect(data_veiculos)
+        conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         veiculo = Cadastro_veiculos.ler_veiculo(placa_veiculo)
+        cursor.close()
+        conexao.close()
         if veiculo == None:
             print("O veículo com essa placa não existe")
         elif veiculo[7] == "inativo" or veiculo[7] == "ativo":
@@ -118,10 +125,6 @@ class Manutencoes:
             Abastecimento.atualizar_status(placa_veiculo, True)
             print("O veículo agora saiu da manutenção.\n")
 
-        conexao.commit()
-        cursor.close()
-        conexao.close()
-
     def registrar_manutencao(placa_veiculo):
         '''Recebe a placa do veículo da manutenção e registra ela no banco de dados.'''
         Manutencoes.tabela_manutencao()
@@ -129,7 +132,7 @@ class Manutencoes:
         if veiculo == None:
             print("O veículo com essa placa não existe.")
         else:
-            conexao = sqlite3.connect(data_manutencao)
+            conexao = sqlite3.connect(database)
             cursor = conexao.cursor()
             agora = datetime.now()
             data = agora.strftime("%d/%m/%Y. Às %H:%M:%S")
@@ -140,14 +143,15 @@ class Manutencoes:
             id = int(input("Qual o id da manutenção? "))
 
             manutencao = Manutencoes(data, tipo, custo, descricao, id)
-            cursor.execute('''INSERT OR IGNORE INTO manutencoes
-                           (data, tipo, custo, descricao, id)
-                           VALUES (?, ?, ?, ?, ?)''', (manutencao.data,
-                            manutencao.tipo, manutencao.custo, manutencao.descricao, manutencao.id))
-            Manutencoes.marcar_veiculo(placa_veiculo)
-            conexao.commit()
-            cursor.close()
-            conexao.close()
+            marcacao = Manutencoes.marcar_veiculo(placa_veiculo)
+            if marcacao:
+                cursor.execute('''INSERT OR IGNORE INTO manutencoes
+                            (data, tipo, custo, descricao, id)
+                            VALUES (?, ?, ?, ?, ?)''', (manutencao.data,
+                                manutencao.tipo, manutencao.custo, manutencao.descricao, manutencao.id))
+                conexao.commit()
+                cursor.close()
+                conexao.close()
             
 
     def associar_veiculo(self, veiculo):
