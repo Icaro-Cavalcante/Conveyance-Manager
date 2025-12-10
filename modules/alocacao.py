@@ -3,9 +3,7 @@ from .motoristas import *
 import sqlite3
 from datetime import datetime
 from .abastecimentos import Abastecimento
-data_veiculo = r"data\veiculos.db"
-data_motorista = r"data\motoristas.db"
-data_alocacao = r"data\alocacoes.db"
+database = r"data\dados.db"
 class Alocacao():
     '''É a classe que cuida da alocação de veículos a motoristas e da quilometragem do veículo.'''
     def __init__(self, origem, destino, data, distancia, id, motorista, veiculo):
@@ -45,7 +43,7 @@ class Alocacao():
     
     def tabela_alocacao():
         '''Cria a tabela das alocações no banco de dados'''
-        conexao = sqlite3.connect(data_alocacao)
+        conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         cursor.execute('''CREATE TABLE IF NOT EXISTS
                        alocacoes (origem TEXT, destino TEXT, data TEXT, distancia REAL, id INTENGER, motorista TEXT, veiculo TEXT)''')
@@ -86,7 +84,7 @@ class Alocacao():
                 elif combustivel_validado == False:
                     print("Não há combustível suficiente para realizar essa viagem.")
                 else:
-                    conexao = sqlite3.connect(data_alocacao)
+                    conexao = sqlite3.connect(database)
                     cursor = conexao.cursor()
                     cursor.execute('''INSERT OR IGNORE INTO alocacoes
                                 (origem, destino, data, distancia, id, motorista, veiculo)
@@ -96,7 +94,7 @@ class Alocacao():
                     nova_alocacao.atualizar_quilometragem()
                     cursor.close()
                     conexao.close()
-                    print("Alocação registrada.")
+                    print("\nAlocação registrada.\n")
                 
     def atualizar_quilometragem(self):
         '''Recebe a distancia da viagem, a placa do veiculo e atualiza a quilometragem do veículo após a viagem.'''
@@ -107,7 +105,7 @@ class Alocacao():
         else:
             quilometragem = float(outro_veiculo[5])
             nova_quilometragem = quilometragem + self.distancia
-            conexao = sqlite3.connect(data_veiculos)
+            conexao = sqlite3.connect(database)
             cursor = conexao.cursor()
             cursor.execute('''UPDATE veiculos
                            SET quilometragem = ?

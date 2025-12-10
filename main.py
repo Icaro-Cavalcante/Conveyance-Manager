@@ -94,7 +94,7 @@ def menu_manutencao():
             custo = Manutencoes.calcular_custo(tipo, tipo_veiculo)
             print(f"\nA manutenção custa R${custo}")
         elif escolha == 2:
-            placa = str(input("\nQual  placa do veículo que deseja colocar em manutenção? "))
+            placa = str(input("\nQual a placa do veículo que deseja colocar em manutenção? "))
             Manutencoes.registrar_manutencao(placa)
         elif escolha == 3:
             placa = str(input("\nInforme a placa do veículo: "))

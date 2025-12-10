@@ -1,5 +1,5 @@
 import sqlite3
-caminho = r"data\motoristas.db"
+database = r"data\dados.db"
 
 
 class Motorista:
@@ -34,7 +34,7 @@ class Cadastro_motorista:
     # CRUD
 
     def tabela_motoristas():
-        conexao = sqlite3.connect(caminho)
+        conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
 
         cursor.execute('''CREATE TABLE IF NOT EXISTS motoristas(nome TEXT, cpf TEXT UNIQUE, categoria_cnh TEXT, experiencia TEXT, disponibilidade TEXT, historico TEXT)''')
@@ -53,7 +53,7 @@ class Cadastro_motorista:
         historico = str(input("Insira o histórico do motorista: "))
         novo_motorista = Motorista(nome, cpf, cnh, experiencia, disponibilidade, historico)
         
-        conexao = sqlite3.connect(caminho)
+        conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         cursor.execute('''INSERT OR IGNORE INTO motoristas (nome, cpf, categoria_cnh, experiencia, disponibilidade, historico) VALUES (?, ?, ?, ?, ?, ?)''', (novo_motorista.nome, novo_motorista.cpf, novo_motorista.categoria_cnh, novo_motorista.experiencia, novo_motorista.disponibilidade, novo_motorista.historico))
 
@@ -65,7 +65,7 @@ class Cadastro_motorista:
     def ler_motorista(outro_cpf):
         '''Recebe um CPF e retorna os dados do motorista com esse CPF.'''
         Cadastro_motorista.tabela_motoristas()
-        conexao = sqlite3.connect(caminho)
+        conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         cursor.execute('''SELECT * FROM motoristas WHERE cpf = ?''', (outro_cpf,))
         motorista = cursor.fetchone()
@@ -97,7 +97,7 @@ class Cadastro_motorista:
         if motorista == None:
             print("O motorista com esse CPF não existe.\n")
         else:
-            conexao = sqlite3.connect(caminho)
+            conexao = sqlite3.connect(database)
             cursor = conexao.cursor()
             if atributo == 1:
                 novo_nome = str(input("Digite o novo nome: "))
@@ -137,7 +137,7 @@ class Cadastro_motorista:
         if motorista == None:
             print("O motorista com esse cpf não existe.\n")
         else:
-            conexao = sqlite3.connect(caminho)
+            conexao = sqlite3.connect(database)
             cursor = conexao.cursor()
             cursor.execute('''DELETE from motoristas
                            WHERE cpf = ?''', (outro_cpf,))

@@ -3,8 +3,7 @@ import sqlite3
 from .veiculos import Veiculo, Cadastro_veiculos
 from datetime import datetime
 caminho_json = r"config\settings.json"
-data_abastecimento = r"data\abastecimentos.db"
-data_veiculo = r"data\veiculos.db"
+database = r"data\dados.db"
 gasolina = 6.05
 class Abastecimento:
     '''É a classe que cuida do abastecimento dos veículos e do consumo de combustível.'''
@@ -33,7 +32,7 @@ class Abastecimento:
         return self.id == outro.id
     
     def tabela_abastecimento():
-        conexao = sqlite3.connect(data_abastecimento)
+        conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         cursor.execute('''CREATE TABLE IF NOT EXISTS abastecimentos
                        (data TEXT, tipo_combustivel TEXT, litros REAL, valor REAL, veiculo TEXT, ID INTENGER UNIQUE)''')
@@ -57,17 +56,17 @@ class Abastecimento:
             id = int(input("Qual o id? "))
             novo_abastecimento = Abastecimento(data, tipo, litros, valor, placa, id)
 
-            conexao = sqlite3.connect(data_abastecimento)
+            conexao = sqlite3.connect(database)
             cursor = conexao.cursor()
             cursor.execute('''INSERT OR IGNORE INTO abastecimentos
                            (data, tipo_combustivel, litros, valor, veiculo, id)
                            VALUES (?, ?, ?, ?, ?, ?)''', (novo_abastecimento.data, novo_abastecimento.tipo_combustivel, novo_abastecimento.litros, novo_abastecimento.valor, novo_abastecimento.veiculo, novo_abastecimento.id))
             
-            novo_abastecimento.abastecer_veiculo()
-            Abastecimento.atualizar_status(novo_abastecimento.veiculo, False)
             conexao.commit()
             cursor.close()
             conexao.close()
+            novo_abastecimento.abastecer_veiculo()
+            Abastecimento.atualizar_status(novo_abastecimento.veiculo, False)
 
     def calcular_consumo(self, veiculo):
         '''Recebe o veiculo, calcula seu consumo médio e retorna o resultado.'''
@@ -92,7 +91,7 @@ class Abastecimento:
         '''Recebe a placa do veículo e os litros para atualizar o combustível do veículo.'''
         combustivel = Cadastro_veiculos.mostrar_veiculo(self.veiculo).combustivel
         novo_combustivel = self.litros + combustivel
-        conexao = sqlite3.connect(data_veiculo)
+        conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
 
         cursor.execute('''UPDATE veiculos
@@ -106,7 +105,7 @@ class Abastecimento:
         veiculo = Cadastro_veiculos.mostrar_veiculo(placa)
         if liberar_manutencao or veiculo.status != "manutencao":
             combustivel = veiculo.combustivel
-            conexao = sqlite3.connect(data_veiculo)
+            conexao = sqlite3.connect(database)
             cursor = conexao.cursor()
 
             if combustivel == 0:
