@@ -153,15 +153,15 @@ def menu_veiculos():
         escolha = int(input("Sua escolha: "))
         print("")
         if escolha == 1:
-            Cadastro_veiculos.criar_veiculo()
+            Veiculo.criar_veiculo()
         elif escolha == 2:
             placa = str(input("Qual a placa do veículo que deseja procurar? "))
-            print(Cadastro_veiculos.mostrar_veiculo(placa))
+            print(Veiculo.mostrar_veiculo(placa))
         elif escolha == 3:
             menu_edicao_veiculos()
         elif escolha == 4:
             placa = str(input("Qual a placa do veículo que deseja remover? "))
-            Cadastro_veiculos.remover_veiculo(placa)
+            Veiculo.remover_veiculo(placa)
         elif escolha == 5:
             break
         else:
@@ -180,6 +180,6 @@ def menu_edicao_veiculos():
             break
         else:
             placa = str(input("Qual a placa do veículo que deseja editar? "))
-            Cadastro_veiculos.atualizar_veiculo(placa, atributo)
+            Veiculo.atualizar_veiculo(placa, atributo)
 
 main()

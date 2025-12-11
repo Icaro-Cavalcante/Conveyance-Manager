@@ -42,21 +42,6 @@ class Veiculo:
     def __eq__(self, outro):
         return self.modelo == outro.modelo
 
-class Moto(Veiculo):
-    '''É a classe das motos.'''
-    pass
-
-class Caminhao(Veiculo):
-    '''É a classe dos caminhões.'''
-    pass
-
-class Carro(Veiculo):
-    '''É a classe dos carros.'''
-    pass
-
-class Cadastro_veiculos:
-    '''É a classe que cuida do CRUD dos veículos.'''
-    # CRUD
 
     def tabela_veiculos():
         conexao = sqlite3.connect(database)
@@ -81,7 +66,7 @@ class Cadastro_veiculos:
         status = str(input("Digite o status do veículo: "))
         combustivel = str(input("Digite o combustivel do veículo: "))
 
-        Cadastro_veiculos.tabela_veiculos()
+        Veiculo.tabela_veiculos()
         conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         novo_veiculo = Veiculo(placa, marca, modelo, tipo, ano, quilometragem, consumo_medio, status, combustivel)
@@ -97,7 +82,7 @@ class Cadastro_veiculos:
 
     def ler_veiculo(placa):
         '''Recebe uma placa e retorna os dados do veículo com essa placa.'''
-        Cadastro_veiculos.tabela_veiculos()
+        Veiculo.tabela_veiculos()
         conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         cursor.execute('SELECT * FROM veiculos WHERE placa = ?', (placa,))
@@ -109,7 +94,7 @@ class Cadastro_veiculos:
 
     def mostrar_veiculo(placa):
         '''Recebe uma placa e mostra os dados do veículo com essa placa.'''
-        atributos = Cadastro_veiculos.ler_veiculo(placa)
+        atributos = Veiculo.ler_veiculo(placa)
         if atributos == None:
             print("O veículo com essa placa não existe.\n")
         else:
@@ -128,7 +113,7 @@ class Cadastro_veiculos:
 
     def atualizar_veiculo(outra_placa, atributo):
         '''Recebe uma placa e atualiza os dados do veículo com essa placa.'''
-        veiculo = Cadastro_veiculos.ler_veiculo(outra_placa)
+        veiculo = Veiculo.ler_veiculo(outra_placa)
         if veiculo == None:
             print("O veículo com essa placa não existe.\n")
         else:
@@ -181,7 +166,7 @@ class Cadastro_veiculos:
 
     def remover_veiculo(placa):
         '''Recebe uma placa e remove os dados do veículo com essa placa do banco de dados.'''
-        veiculo = Cadastro_veiculos.ler_veiculo(placa)
+        veiculo = Veiculo.ler_veiculo(placa)
         if veiculo == None:
             print("O veículo com essa placa não existe.\n")
         else:
@@ -201,3 +186,15 @@ class Cadastro_veiculos:
     def registrar_historico(data, evento):
         '''Recebe a data e o nome do evento e registra o evento no histórico.'''
         pass
+    
+class Moto(Veiculo):
+    '''É a classe das motos.'''
+    pass
+
+class Caminhao(Veiculo):
+    '''É a classe dos caminhões.'''
+    pass
+
+class Carro(Veiculo):
+    '''É a classe dos carros.'''
+    pass
