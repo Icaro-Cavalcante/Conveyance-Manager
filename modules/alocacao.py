@@ -63,11 +63,11 @@ class Alocacao():
             print("Alocação negada. O veículo está inativo ou em manutenção.")
         elif permissao:
             cpf = str(input("Digite o CPF do motorista: "))
-            existe = Cadastro_motorista.ler_motorista(cpf)
+            existe = Motorista.ler_motorista(cpf)
             if existe == None:
                 print("Um motorista com esse CPF não existe.")
             else:
-                motorista = Cadastro_motorista.mostrar_motorista(cpf).cpf
+                motorista = Motorista.mostrar_motorista(cpf).cpf
                 veiculo = Cadastro_veiculos.mostrar_veiculo(placa).placa
                 origem = str(input("Digite a origem: "))
                 destino = str(input("Digite o destino: "))
@@ -130,7 +130,7 @@ class Alocacao():
             return permitido
         
     def validar_cnh(self):
-        cnh = Cadastro_motorista.mostrar_motorista(self.motorista).categoria_cnh
+        cnh = Motorista.mostrar_motorista(self.motorista).categoria_cnh
         tipo = Cadastro_veiculos.mostrar_veiculo(self.veiculo).tipo
 
         if cnh.upper() == "A" and tipo.lower() == "moto":

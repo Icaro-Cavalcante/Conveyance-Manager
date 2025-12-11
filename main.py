@@ -114,15 +114,15 @@ def menu_motoristas():
         escolha = int(input("Sua escolha: "))
         print("")
         if escolha == 1:
-            Cadastro_motorista.criar_motorista()
+            Motorista.criar_motorista()
         elif escolha == 2:
             outro_cpf = str(input("Digite o CPF do motorista que deseja procurar: "))
-            print(Cadastro_motorista.mostrar_motorista(outro_cpf))
+            print(Motorista.mostrar_motorista(outro_cpf))
         elif escolha == 3:
             menu_edicao_motoristas()
         elif escolha == 4:
             outro_cpf = str(input("Digite o CPF do motorista que deseja procurar: "))
-            Cadastro_motorista.remover_motorista(outro_cpf)
+            Motorista.remover_motorista(outro_cpf)
         elif escolha == 5:
             break
         else:
@@ -142,7 +142,7 @@ def menu_edicao_motoristas():
             break
         else:
             cpf = str(input("Digite o CPF do motorista que deseja editar: "))
-            Cadastro_motorista.atualizar_motorista(cpf, atributo)
+            Motorista.atualizar_motorista(cpf, atributo)
 
 def menu_veiculos():
     '''Menu para interagir com o sistema de veículos.'''
