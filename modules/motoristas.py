@@ -29,10 +29,6 @@ class Motorista:
     def __eq__(self, outro):
         return self.nome == outro.nome
 
-class Cadastro_motorista:
-    '''É a classe que cuida do CRUD dos motoristas.'''
-    # CRUD
-
     def tabela_motoristas():
         conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
@@ -44,7 +40,7 @@ class Cadastro_motorista:
 
     def criar_motorista():
         '''Recebe os dados do motorista e cadastra o motorista no banco de dados.'''
-        Cadastro_motorista.tabela_motoristas()
+        Motorista.tabela_motoristas()
         nome = str(input("Insira o nome do motorista: "))
         cpf = str(input("Insira o CPF do motorista: "))
         cnh = str(input("Insira a categoria da cnh do motorista: "))
@@ -64,7 +60,7 @@ class Cadastro_motorista:
 
     def ler_motorista(outro_cpf):
         '''Recebe um CPF e retorna os dados do motorista com esse CPF.'''
-        Cadastro_motorista.tabela_motoristas()
+        Motorista.tabela_motoristas()
         conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         cursor.execute('''SELECT * FROM motoristas WHERE cpf = ?''', (outro_cpf,))
@@ -76,7 +72,7 @@ class Cadastro_motorista:
     
     def mostrar_motorista(outro_cpf):
         '''Recebe um CPF e mostra os dados do motorista com esse CPF.'''
-        dados = Cadastro_motorista.ler_motorista(outro_cpf)
+        dados = Motorista.ler_motorista(outro_cpf)
         if dados == None:
             print("O motorista com esse CPF não existe.\n")
         else:
@@ -93,7 +89,7 @@ class Cadastro_motorista:
 
     def atualizar_motorista(outro_cpf, atributo):
         '''Recebe um CPF e atualiza os dados do motorista com esse CPF.'''
-        motorista = Cadastro_motorista.ler_motorista(outro_cpf)
+        motorista = Motorista.ler_motorista(outro_cpf)
         if motorista == None:
             print("O motorista com esse CPF não existe.\n")
         else:
@@ -133,7 +129,7 @@ class Cadastro_motorista:
 
     def remover_motorista(outro_cpf):
         '''Recebe um CPF e remove o motorista com esse CPF do banco de dados.'''
-        motorista = Cadastro_motorista.ler_motorista(outro_cpf)
+        motorista = Motorista.ler_motorista(outro_cpf)
         if motorista == None:
             print("O motorista com esse cpf não existe.\n")
         else:
