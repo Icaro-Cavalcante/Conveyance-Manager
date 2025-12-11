@@ -68,7 +68,7 @@ class Alocacao():
                 print("Um motorista com esse CPF não existe.")
             else:
                 motorista = Cadastro_motorista.mostrar_motorista(cpf).cpf
-                veiculo = Cadastro_veiculos.mostrar_veiculo(placa).placa
+                veiculo = Veiculo.mostrar_veiculo(placa).placa
                 origem = str(input("Digite a origem: "))
                 destino = str(input("Digite o destino: "))
                 distancia = float(input("Digite a distancia: "))
@@ -99,7 +99,7 @@ class Alocacao():
     def atualizar_quilometragem(self):
         '''Recebe a distancia da viagem, a placa do veiculo e atualiza a quilometragem do veículo após a viagem.'''
         # Atualizar quilometragem automaticamente após cada viagem.
-        outro_veiculo = Cadastro_veiculos.ler_veiculo(self.veiculo)
+        outro_veiculo = Veiculo.ler_veiculo(self.veiculo)
         if outro_veiculo == None:
             print("O veículo com essa placa não existe.")
         else:
@@ -118,7 +118,7 @@ class Alocacao():
 
     def permissao_alocacao(placa):
         '''Recebe a placa do veículo e caso esteja em manutenção ou inativo, bloqueia a alocação. Do contrário, permite.'''
-        veiculo = Cadastro_veiculos.ler_veiculo(placa)
+        veiculo = Veiculo.ler_veiculo(placa)
         if veiculo == None:
             print("O veículo com essa placa não existe.")
         else:
@@ -131,7 +131,7 @@ class Alocacao():
         
     def validar_cnh(self):
         cnh = Cadastro_motorista.mostrar_motorista(self.motorista).categoria_cnh
-        tipo = Cadastro_veiculos.mostrar_veiculo(self.veiculo).tipo
+        tipo = Veiculo.mostrar_veiculo(self.veiculo).tipo
 
         if cnh.upper() == "A" and tipo.lower() == "moto":
             valido = True
@@ -144,7 +144,7 @@ class Alocacao():
         return valido
     
     def validar_combustivel(self):
-        veiculo = Cadastro_veiculos.mostrar_veiculo(self.veiculo)
+        veiculo = Veiculo.mostrar_veiculo(self.veiculo)
         quilometros_possiveis = veiculo.consumo_medio * veiculo.combustivel
         if quilometros_possiveis < self.distancia:
             combustivel_validado = False

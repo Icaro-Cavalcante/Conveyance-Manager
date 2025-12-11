@@ -91,8 +91,8 @@ class Manutencoes:
         '''Recebe a placa do veículo e altera seu status para (manutencao).'''
         conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
-        veiculo = Cadastro_veiculos.ler_veiculo(placa_veiculo)
-        status = Cadastro_veiculos.mostrar_veiculo(placa_veiculo).status
+        veiculo = Veiculo.ler_veiculo(placa_veiculo)
+        status = Veiculo.mostrar_veiculo(placa_veiculo).status
         if veiculo == None:
             print("O veículo com essa placa não existe")
             return False
@@ -114,7 +114,7 @@ class Manutencoes:
         '''Recebe o veículo e altera seu status para (ativo).'''
         conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
-        veiculo = Cadastro_veiculos.ler_veiculo(placa_veiculo)
+        veiculo = Veiculo.ler_veiculo(placa_veiculo)
         cursor.close()
         conexao.close()
         if veiculo == None:
@@ -128,7 +128,7 @@ class Manutencoes:
     def registrar_manutencao(placa_veiculo):
         '''Recebe a placa do veículo da manutenção e registra ela no banco de dados.'''
         Manutencoes.tabela_manutencao()
-        veiculo = Cadastro_veiculos.ler_veiculo(placa_veiculo)
+        veiculo = Veiculo.ler_veiculo(placa_veiculo)
         if veiculo == None:
             print("O veículo com essa placa não existe.")
         else:
