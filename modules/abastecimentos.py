@@ -1,6 +1,6 @@
 import json
 import sqlite3
-from .veiculos import Veiculo, Cadastro_veiculos
+from .veiculos import Veiculo
 from datetime import datetime
 caminho_json = r"config\settings.json"
 database = r"data\dados.db"
@@ -46,7 +46,7 @@ class Abastecimento:
         agora = datetime.now()
         data = agora.strftime("%d/%m/%Y. Às %H:%M:%S")
         placa = str(input("Qual a placa do veículo que deseja abastecer? "))
-        veiculo = Cadastro_veiculos.ler_veiculo(placa)
+        veiculo = Veiculo.ler_veiculo(placa)
         if veiculo == None:
             print("O veículo com essa placa não existe.\n")
         else:
@@ -89,7 +89,7 @@ class Abastecimento:
 
     def abastecer_veiculo(self):
         '''Recebe a placa do veículo e os litros para atualizar o combustível do veículo.'''
-        combustivel = Cadastro_veiculos.mostrar_veiculo(self.veiculo).combustivel
+        combustivel = Veiculo.mostrar_veiculo(self.veiculo).combustivel
         novo_combustivel = self.litros + combustivel
         conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
@@ -102,7 +102,7 @@ class Abastecimento:
         conexao.close()
 
     def atualizar_status(placa, liberar_manutencao):
-        veiculo = Cadastro_veiculos.mostrar_veiculo(placa)
+        veiculo = Veiculo.mostrar_veiculo(placa)
         if liberar_manutencao or veiculo.status != "manutencao":
             combustivel = veiculo.combustivel
             conexao = sqlite3.connect(database)
