@@ -36,21 +36,35 @@ class Alocacao():
             print("ID inválido.")
 
     def __str__(self):
-        return f"Origem: {self.origem}\nDestino: {self.destino}\nDistância: {self.distancia}\n"
+        return f"\nOrigem: {self.origem}\nDestino: {self.destino}\nDistância: {self.distancia}\nData: {self.data}\nPlaca do veículo: {self.veiculo}\nCPF do motorista: {self.motorista}\n"
     
     def __eq__(self, outro):
         return self.id == outro.id
     
+
     def tabela_alocacao():
         '''Cria a tabela das alocações no banco de dados'''
         conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         cursor.execute('''CREATE TABLE IF NOT EXISTS
-                       alocacoes (origem TEXT, destino TEXT, data TEXT, distancia REAL, id INTENGER, motorista TEXT, veiculo TEXT)''')
+                       alocacoes (origem TEXT, destino TEXT, data TEXT, distancia REAL, id INTENGER UNIQUE, motorista TEXT, veiculo TEXT)''')
         
         conexao.commit()
         cursor.close()
         conexao.close()
+
+    def procurar_alocacao(id):
+        '''Recebe o ID da alocação e retorna suas informações.'''
+        conexao = sqlite3.connect(database)
+        cursor = conexao.cursor()
+        cursor.execute('''SELECT * FROM alocacoes
+                       WHERE id = ?''', (id,))
+        atributos = cursor.fetchone()
+        if atributos == None:
+            print("Essa alocação não existe.")
+        else:
+            nova_alocacao = Alocacao(atributos[0], atributos[1], atributos[2], atributos[3], atributos[4], atributos[5], atributos[6])
+            return nova_alocacao
 
     def associar_registrar():
         '''Recebe origem, destino, distância, placa do veículo e CPF do motorista e associa o veículo a um motorista e registra a viagem.'''

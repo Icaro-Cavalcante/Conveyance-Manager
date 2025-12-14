@@ -71,7 +71,8 @@ def menu_alocacao():
         if escolha == 1:
             Alocacao.associar_registrar()
         elif escolha == 2:
-            print("Feature em desenvolvimento.\n")
+            id = str(input("Qual o ID da alocação? "))
+            print(Alocacao.procurar_alocacao(id))
         elif escolha == 3:
             break
         else:
