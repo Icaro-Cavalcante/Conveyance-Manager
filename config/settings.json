@@ -33,6 +33,14 @@
 
                 },
                 "valor_gasolina": 6.05
-            }
+            },
+        "compatibilidade": {
+            "moto": "A",
+            "carro": "B",
+            "caminhao": "C"
+        },
+        "quilometragem": {
+            "limite": 10000
+        }
     }   
 }
