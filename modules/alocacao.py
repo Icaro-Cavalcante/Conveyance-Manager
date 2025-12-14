@@ -1,9 +1,11 @@
 from .veiculos import *
 from .motoristas import *
-import sqlite3
 from datetime import datetime
 from .abastecimentos import Abastecimento
+import sqlite3
+import json
 database = r"data\dados.db"
+caminho_json = r"config\settings.json"
 class Alocacao():
     '''É a classe que cuida da alocação de veículos a motoristas e da quilometragem do veículo.'''
     def __init__(self, origem, destino, data, distancia, id, motorista, veiculo):
@@ -129,7 +131,6 @@ class Alocacao():
             cursor.close()
             conexao.close()
 
-
     def permissao_alocacao(placa):
         '''Recebe a placa do veículo e caso esteja em manutenção ou inativo, bloqueia a alocação. Do contrário, permite.'''
         veiculo = Veiculo.ler_veiculo(placa)
@@ -144,14 +145,12 @@ class Alocacao():
             return permitido
         
     def validar_cnh(self):
-        cnh = Motorista.mostrar_motorista(self.motorista).categoria_cnh
-        tipo = Veiculo.mostrar_veiculo(self.veiculo).tipo
-
-        if cnh.upper() == "A" and tipo.lower() == "moto":
-            valido = True
-        elif cnh.upper() == "B" and tipo.lower() == "carro":
-            valido = True
-        elif cnh.upper() == "C" and tipo.lower() == "caminhao":
+        cnh = Motorista.mostrar_motorista(self.motorista).categoria_cnh.upper()
+        tipo = Veiculo.mostrar_veiculo(self.veiculo).tipo.lower()
+        with open(caminho_json, "r") as f:
+            data = json.load(f)
+        compativivel = data["configs"]["compatibilidade"][tipo]
+        if cnh == compativivel:
             valido = True
         else:
             valido = False
