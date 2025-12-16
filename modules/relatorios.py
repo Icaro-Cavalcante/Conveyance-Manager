@@ -1,4 +1,5 @@
 import sqlite3
+from .motoristas import Motorista
 data_veiculos = r"data\veiculos.db"
 class Relatorio():
     '''É a classe que cria os relatórios.'''
@@ -53,10 +54,26 @@ class Relatorio():
 
         pass
 
-    def gerar_viagens(self):
+    def gerar_viagens():
         '''Gera um relatório do total de viagens por motorista.'''
-
-        pass
+        conexao = sqlite3.connect(r"data\dados.db")
+        cursor = conexao.cursor()
+        num = 0
+        cpf = str(input("Digite o CPF do motorista: "))
+        motorista = Motorista.ler_motorista(cpf)
+        if motorista == None:
+            print("O motorista não existe")
+        else:
+            nome = Motorista.mostrar_motorista(cpf).nome
+            cursor.execute('''SELECT * FROM alocacoes''')
+            viagens = cursor.fetchall()
+            for viagem in viagens:
+                if viagem[5] == cpf:
+                    num+= 1
+            if num > 0:
+                print(f"O motorista {nome} tem um total de {num} viagens.\n")
+            elif num == 0:
+                print(f"O motorista não tem viagens.\n")
 
     def gerar_quilometragem(self):
         '''Gera um relatório da quilometragem média por tipo de veículo..'''
