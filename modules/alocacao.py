@@ -145,6 +145,7 @@ class Alocacao():
             return permitido
         
     def validar_cnh(self):
+        '''Valida a categoria da CNH por tipo de veículo.'''
         cnh = Motorista.mostrar_motorista(self.motorista).categoria_cnh.upper()
         tipo = Veiculo.mostrar_veiculo(self.veiculo).tipo.lower()
         with open(caminho_json, "r") as f:
@@ -157,6 +158,7 @@ class Alocacao():
         return valido
     
     def validar_combustivel(self):
+        '''Valida se o combustível de veículo é o suficiente para a alocação.'''
         veiculo = Veiculo.mostrar_veiculo(self.veiculo)
         quilometros_possiveis = veiculo.consumo_medio * veiculo.combustivel
         if quilometros_possiveis < self.distancia:
