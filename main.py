@@ -75,12 +75,14 @@ def menu_relatorios():
     while True:
         print("Menu de relatórios")
         print("-" * 20)
-        print(f"Escolha uma opção:\n1 - Relatório inicial\n2 - Voltar")
+        print(f"Escolha uma opção:\n1 - Relatório inicial\n2 - Total de viagens por motorista\n3 - Voltar")
         escolha = int(input("Digite sua escolha: "))
         print("")
         if escolha == 1:
             Relatorio.relatorio_inicial()
         elif escolha == 2:
+            Relatorio.gerar_viagens()
+        elif escolha == 3:
             break
         else:
             print("Escolha inválida")
