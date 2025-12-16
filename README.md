@@ -116,6 +116,7 @@ Conveyance-Manager/
 - Marcar veiculo
 - Liberar veiculo
 - Registrar manutenção
+- Zerar quilometragem
 
 ### Classe - Relatório 📝
 
