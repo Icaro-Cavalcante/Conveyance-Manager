@@ -41,9 +41,15 @@ class Veiculo:
     
     def __eq__(self, outro):
         return self.modelo == outro.modelo
-
+    
+    def __lt__(self, outro):
+        return self.quilometragem < outro.quilometragem
+    
+    def __repr__(self):
+        return f"Veiculo(placa='{self.placa}', marca='{self.marca}', modelo='{self.modelo}', tipo='{self.tipo}', ano={self.ano}, quilometragem{self.quilometragem}, consumo_medio={self.consumo_medio}, status='{self.status}', combustivel={self.combustivel})"
 
     def tabela_veiculos():
+        '''Cria a tabela veículos no banco de dados caso ela não exista.'''
         conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         cursor.execute('''

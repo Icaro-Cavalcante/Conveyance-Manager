@@ -152,9 +152,3 @@ class Manutencoes:
                 conexao.commit()
                 cursor.close()
                 conexao.close()
-            
-
-    def associar_veiculo(self, veiculo):
-        '''Recebe um veículo, associa a manutenção a ele e armazena no histórico.'''
-        # Associar a um veículo e armazenar no histórico.
-        pass

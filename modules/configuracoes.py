@@ -2,7 +2,9 @@ import json
 caminho_json = r"config\settings.json"
 
 class Configuracao:
+    '''A classe que permite manipular as configurações.'''
     def configurar_gasolina():
+        '''Configura o preço da gasolina.'''
         preco = float(input("\nQual o novo preço da gasolina? "))
         with open(caminho_json, "r") as f:
             dados = json.load(f)
@@ -13,6 +15,7 @@ class Configuracao:
         print("Preço alterado.\n")
 
     def configurar_manutencao():
+        '''Configura o preço da manutenção e os pesos por tipo de veículo.'''
         print("\n1 - Peso por tipo de veículo\n2 - Custo por tipo de manutenção\n")
         escolha = int(input("Escolha o que deseja configurar: "))
         if escolha == 1:
@@ -51,6 +54,7 @@ class Configuracao:
                 print("Escolha inválida.\n")
 
     def configurar_compatibilidade():
+        '''Configura a compatibilidade da CNH por tipo de veículo.'''
         print("\n1 - Moto\n2 - Carro\n3 - Caminhão")
         escolha = int(input("Qual a sua escolha? "))
         if escolha == 1:
@@ -84,6 +88,7 @@ class Configuracao:
             print("Escolha inválida.\n")
 
     def configurar_limite():
+        '''Configura o limite de quilometragem, até a necessidade de manutenção preventiva.'''
         limite = float(input("\nDigite o novo limite de quilometragem para manuteção: "))
         with open(caminho_json, "r") as f:
             dados = json.load(f)
@@ -93,6 +98,7 @@ class Configuracao:
         print("Limite alterado.\n")
 
     def configurar_consumo_padrao():
+        '''Configura o consumo padrão por tipo de veículo.'''
         print("\n1 - Carro\n2 - Moto\n3 - Caminhão")
         escolha = int(input("Qual sua escolha?"))
         if escolha == 1:

@@ -32,6 +32,7 @@ class Abastecimento:
         return self.id == outro.id
     
     def tabela_abastecimento():
+        '''Cria a tabela de abastecimentos no banco de dados caso ela não exista.'''
         conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         cursor.execute('''CREATE TABLE IF NOT EXISTS abastecimentos
