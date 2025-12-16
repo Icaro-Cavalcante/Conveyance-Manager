@@ -4,13 +4,14 @@ from modules.manutencoes import Manutencoes
 from modules.motoristas import *
 from modules.relatorios import Relatorio
 from modules.veiculos import *
+from modules.configuracoes import Configuracao
 
 def main():
     '''Função principal.'''
     while True:
         print(f"Conveyance Manager")
         print("-" * 20)
-        print(f"Escolha uma opção:\n1 - Abastecimento\n2 - Alocação\n3 - Manutenções\n4 - Cadastro de motoristas\n5 - Relatórios\n6 - Cadastro de veículos\n7 - Sair")
+        print(f"Escolha uma opção:\n1 - Abastecimento\n2 - Alocação\n3 - Manutenções\n4 - Cadastro de motoristas\n5 - Relatórios\n6 - Cadastro de veículos\n7 - Configurações\n8 - Sair")
         escolha = int(input("Sua escolha: "))
         print("")
         if escolha == 1:
@@ -26,9 +27,25 @@ def main():
         elif escolha == 6:
             menu_veiculos()
         elif escolha == 7:
+            menu_config()
+        elif escolha == 8:
             break
         else:
             print("Escolha inválida.\n")
+
+def menu_config():
+    '''Menu para interagir com as configurações'''
+    while True:
+        print("Menu de configurações")
+        print("-" * 20)
+        print(f"Escolha uma opção:\n1 - Preço gasolina\n2 - Preço manutenção\n3 - CNH compatível\n4 - Quilometrage limite para manutenção\n5 - Consumo km/l padrão\n6 - Voltar")
+        escolha = int(input("Digite sua escolha: "))
+        if escolha in range(1,6):
+            Configuracao.mudar_configuracao(escolha)
+        elif escolha == 6:
+            break
+        else:
+            print("Escolha inválida.")
 
 def menu_abastecimentos():
     '''Menu para interagir com o sistema de abastecimentos.'''
