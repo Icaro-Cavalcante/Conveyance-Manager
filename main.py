@@ -38,10 +38,18 @@ def menu_config():
     while True:
         print("Menu de configurações")
         print("-" * 20)
-        print(f"Escolha uma opção:\n1 - Preço gasolina\n2 - Preço manutenção\n3 - CNH compatível\n4 - Quilometrage limite para manutenção\n5 - Consumo km/l padrão\n6 - Voltar")
+        print(f"Escolha uma opção:\n1 - Preço gasolina\n2 - Preço manutenção\n3 - Compatibilidade da CNH\n4 - Quilometragem limite para manutenção\n5 - Consumo km/l padrão\n6 - Voltar")
         escolha = int(input("Digite sua escolha: "))
-        if escolha in range(1,6):
-            Configuracao.mudar_configuracao(escolha)
+        if escolha == 1:
+            Configuracao.configurar_gasolina()
+        elif escolha == 2:
+            Configuracao.configurar_manutencao()
+        elif escolha == 3:
+            Configuracao.configurar_compatibilidade()
+        elif escolha == 4:
+            Configuracao.configurar_limite()
+        elif escolha == 5:
+            Configuracao.configurar_consumo_padrao()
         elif escolha == 6:
             break
         else:
