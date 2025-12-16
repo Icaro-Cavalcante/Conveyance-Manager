@@ -180,12 +180,6 @@ class Veiculo:
             conexao.close()
 
             print(f"\nVeículo com placa {placa} removido\n")
-
-    # registar histórico de eventos (entrada, saída, manutenção, abastecimeto, desativação)
-    
-    def registrar_historico(data, evento):
-        '''Recebe a data e o nome do evento e registra o evento no histórico.'''
-        pass
     
 class Moto(Veiculo):
     '''É a classe das motos.'''

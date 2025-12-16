@@ -4,7 +4,6 @@ from .veiculos import Veiculo
 from datetime import datetime
 caminho_json = r"config\settings.json"
 database = r"data\dados.db"
-gasolina = 6.05
 class Abastecimento:
     '''É a classe que cuida do abastecimento dos veículos e do consumo de combustível.'''
     def __init__(self, data, tipo_combustivel, litros, valor, veiculo, id):
@@ -68,15 +67,22 @@ class Abastecimento:
             novo_abastecimento.abastecer_veiculo()
             Abastecimento.atualizar_status(novo_abastecimento.veiculo, False)
 
-    def calcular_consumo(self, veiculo):
-        '''Recebe o veiculo, calcula seu consumo médio e retorna o resultado.'''
-        # calcular consumo médio por veículo,
-        pass
-
-    def consumo_padrao(self, consumo_padrao, consumo_medio):
-        # exibir veículos com consumo fora do padrão definido
-        '''Recebe o consumo padrão e o consumo médio e exibe se o veículo está com o consumo fora do padrão.'''
-        pass
+    def consumo_padrao(placa):
+        '''Recebe a placa do veículo e exibe se o veículo está com o consumo fora do padrão.'''
+        veiculo = Veiculo.ler_veiculo(placa)
+        if veiculo == None:
+            print("O veículo com essa placa não existe.")
+        else:
+            consumo_medio = Veiculo.mostrar_veiculo(placa).consumo_medio
+            tipo = Veiculo.mostrar_veiculo(placa).tipo
+            with open(caminho_json, "r") as f:
+                dados = json.load(f)
+            minimo = dados["configs"]["abastecimentos"]["consumo_medio"][tipo]["minimo"]      
+            maximo = dados["configs"]["abastecimentos"]["consumo_medio"][tipo]["maximo"]    
+            if consumo_medio in range(minimo, maximo):
+                print("O consumo médio do veículo está dentro do padrão.\n")  
+            else:
+                print("O consumo médio do veículo está fora do padrão.\n")
 
     def calcular_valor(litros):
         '''Recebe a quantidade de litros e calcula o valor a ser pago pelo abastecimento.'''

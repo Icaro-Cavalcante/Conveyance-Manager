@@ -60,12 +60,15 @@ def menu_abastecimentos():
     while True:
         print("Menu de abastecimentos")
         print("-" * 20)
-        print(f"Escolha uma opção:\n1 - Abastecer\n2 - Voltar")
+        print(f"Escolha uma opção:\n1 - Abastecer\n2 - Verificar se o consumo está no padrão\n3 - Voltar")
         escolha = int(input("Digite sua escolha: "))
         print("")
         if escolha == 1:
             Abastecimento.registrar_abastecimento()
         elif escolha == 2:
+            placa = str(input("Informe a placa do veículo: "))
+            Abastecimento.consumo_padrao(placa)
+        elif escolha == 3:
             break
         else:
             print("Escolha inválida")

@@ -142,9 +142,3 @@ class Motorista:
             cursor.close()
             conexao.close()
             print("\nMotorista deletado.\n")
-
-    # Validação automática (só pode dirigir veiculos compatíveis com sua categoria)
-
-    def validar(self, categoria_cnh, tipo_veiculo):
-        '''Recebe a categoria da CNH e o tipo de veículo e valida se o veículo é compatível com a CNH.'''
-        pass

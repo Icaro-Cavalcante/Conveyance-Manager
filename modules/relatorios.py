@@ -59,11 +59,6 @@ class Relatorio():
         print(f"\nCarro:\nCorretiva: {peso_carro * custo_corretiva}\nPreventiva: {peso_carro * custo_preventiva}\n\nMoto:\nCorretiva: {peso_moto * custo_corretiva}\nPreventiva: {peso_moto * custo_preventiva}\n\nCaminhão:\nCorretiva: {peso_caminhao * custo_corretiva}\nPreventiva: {peso_caminhao * custo_preventiva}\n")
         pass
 
-    def gerar_ranking(self):
-        '''Gera um relatório do ranking de veículos por eficiência de combustível.'''
-
-        pass
-
     def gerar_viagens():
         '''Gera um relatório do total de viagens por motorista.'''
         conexao = sqlite3.connect(r"data\dados.db")
