@@ -1,7 +1,7 @@
 import sqlite3
 import json
 from .motoristas import Motorista
-data_veiculos = r"data\veiculos.db"
+database = r"data\dados.db"
 caminho_json = r"config\settings.json"
 class Relatorio():
     '''É a classe que cria os relatórios.'''
@@ -10,7 +10,7 @@ class Relatorio():
 
     def relatorio_inicial():
         '''Faz o relatório inicial, mostrando os dados de todos os veículos e mostrando quantos estão ativos, inativo e em manutenção.'''
-        conexao = sqlite3.connect(data_veiculos)
+        conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         lista_ativo = []
         lista_inativo = []
@@ -61,7 +61,7 @@ class Relatorio():
 
     def gerar_viagens():
         '''Gera um relatório do total de viagens por motorista.'''
-        conexao = sqlite3.connect(r"data\dados.db")
+        conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         num = 0
         cpf = str(input("Digite o CPF do motorista: "))
@@ -84,7 +84,7 @@ class Relatorio():
 
     def gerar_quilometragem():
         '''Gera um relatório da quilometragem média por tipo de veículo..'''
-        conexao = sqlite3.connect(r"data\dados.db")
+        conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
         num_carro = 0
         num_moto = 0

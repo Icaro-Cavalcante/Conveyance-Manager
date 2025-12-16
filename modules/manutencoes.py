@@ -123,6 +123,7 @@ class Manutencoes:
             print("O veículo informado não está em manutenção.")
         else:
             Abastecimento.atualizar_status(placa_veiculo, True)
+            Manutencoes.zerar_quilometragem(placa_veiculo)
             print("O veículo agora saiu da manutenção.\n")
 
     def registrar_manutencao(placa_veiculo):
@@ -152,3 +153,16 @@ class Manutencoes:
                 conexao.commit()
                 cursor.close()
                 conexao.close()
+
+    def zerar_quilometragem(placa):
+        '''Zera a quilometragem do veículo após a manutenção.'''
+        conexao = sqlite3.connect(database)
+        cursor = conexao.cursor()
+        zero = 0
+
+        cursor.execute('''UPDATE veiculos
+                       SET quilometragem = ?
+                       WHERE placa = ?''', (zero, placa))
+        conexao.commit()
+        cursor.close()
+        conexao.close()
