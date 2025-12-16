@@ -1,6 +1,8 @@
 import sqlite3
+import json
 from .motoristas import Motorista
 data_veiculos = r"data\veiculos.db"
+caminho_json = r"config\settings.json"
 class Relatorio():
     '''É a classe que cria os relatórios.'''
     def __init__(self):
@@ -44,9 +46,17 @@ class Relatorio():
 
         print(f"{qtd_ativo} veículos ativos: {lista_ativo}\n{qtd_inativo} veículos inativos: {lista_inativo}\n{qtd_manutencao} veículos em manutenção: {lista_manutencao}")
 
-    def gerar_custo_manutenção(self):
+    def gerar_custo_manutenção():
         '''Gera um relatório do custo total e médio de manutenção por tipo de veículo.'''
+        with open(caminho_json, "r") as f:
+            data = json.load(f)
+        peso_carro = data["configs"]["manutencoes"]["peso"]["carro"]
+        peso_moto = data["configs"]["manutencoes"]["peso"]["moto"]
+        peso_caminhao = data["configs"]["manutencoes"]["peso"]["caminhao"]
+        custo_corretiva = data["configs"]["manutencoes"]["custo"]["corretiva"]
+        custo_preventiva = data["configs"]["manutencoes"]["custo"]["preventiva"]
 
+        print(f"\nCarro:\nCorretiva: {peso_carro * custo_corretiva}\nPreventiva: {peso_carro * custo_preventiva}\n\nMoto:\nCorretiva: {peso_moto * custo_corretiva}\nPreventiva: {peso_moto * custo_preventiva}\n\nCaminhão:\nCorretiva: {peso_caminhao * custo_corretiva}\nPreventiva: {peso_caminhao * custo_preventiva}\n")
         pass
 
     def gerar_ranking(self):
