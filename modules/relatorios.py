@@ -74,8 +74,43 @@ class Relatorio():
                 print(f"O motorista {nome} tem um total de {num} viagens.\n")
             elif num == 0:
                 print(f"O motorista não tem viagens.\n")
+        cursor.close()
+        conexao.cursor()
 
-    def gerar_quilometragem(self):
+    def gerar_quilometragem():
         '''Gera um relatório da quilometragem média por tipo de veículo..'''
+        conexao = sqlite3.connect(r"data\dados.db")
+        cursor = conexao.cursor()
+        num_carro = 0
+        num_moto = 0
+        num_caminhao = 0
+        km_moto = 0
+        km_carro = 0
+        km_caminhao = 0
+        media_carro = 0
+        media_moto = 0
+        media_caminhao = 0
+
+        cursor.execute('''SELECT * FROM veiculos''')
+        veiculos = cursor.fetchall()
+        for veiculo in veiculos:
+            if veiculo[3] == "carro":
+                km_carro += veiculo[5]
+                num_carro += 1
+            elif veiculo[3] == "moto":
+                km_moto += veiculo[5]
+                num_moto += 1
+            elif veiculo[3] == "caminhao":
+                km_caminhao += veiculo[5]
+                num_caminhao += 1
+        if num_carro > 0:
+            media_carro = km_carro / num_carro
+        if num_moto > 0:
+            media_moto = km_moto / num_moto
+        if num_caminhao > 0:
+            media_caminhao = km_caminhao / num_caminhao
+
+        print(f"\nMédia carro: {media_carro}\nMédia moto: {media_moto}\nMédia caminhão: {media_caminhao}\n")
+            
 
         pass
