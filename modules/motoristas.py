@@ -30,6 +30,7 @@ class Motorista:
         return self.nome == outro.nome
 
     def tabela_motoristas():
+        '''Cria a tabela motoristas no banco de dados caso ela não exista.'''
         conexao = sqlite3.connect(database)
         cursor = conexao.cursor()
 

@@ -217,4 +217,5 @@ def menu_edicao_veiculos():
             placa = str(input("Qual a placa do veículo que deseja editar? "))
             Veiculo.atualizar_veiculo(placa, atributo)
 
-main()
+if __name__ == "__main__":
+    main()
