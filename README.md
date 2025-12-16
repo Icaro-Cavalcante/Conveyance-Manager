@@ -18,11 +18,7 @@ Conveyance-Manager/
 ├── main.py                      # Arquivo principal do sistema
 |
 ├── data                       
-|   ├── abastecimentos.db        # Dados dos abastecimentos
-|   ├── alocacoes.db             # Dados das alocações
-|   ├── motoristas.db            # Dados dos motoristas
-|   ├── manutencoes.db           # Dados das manutenções
-|   └── veiculos.db              # Dados dos veículos
+|   └── dados.db                 # Arquivo de dados do sistema
 |
 ├── config
 |   └── settings.json            # Arquivo json de configurações
@@ -31,6 +27,7 @@ Conveyance-Manager/
 |   ├── __init__.py              # Transforma o diretório em um pacote    
 |   ├── abastecimentos.py        # Classe utilizada para os abastecimentos
 |   ├── alocacao.py              # Classe utilizada para as alocações
+|   ├── configuracoes.py         # Classe utilizada para as configurações
 |   ├── manutencoes.py           # Classe utilizada para as manutenções
 |   ├── motoristas.py            # Classe utilizada para os motoristas e o cadastro deles
 |   ├── relatorios.py            # Classe utilizada para os relatórios
@@ -38,6 +35,12 @@ Conveyance-Manager/
 |
 └── README.md                    # Este arquivo
 ```
+
+## Como usar ✍️
+- 1 - Clone o repositório.
+- 2 - Execute o arquivo principal `python main.py`.
+- 3 - Siga as instruções do programa.
+
 
 ## 📓 UML textual
 
@@ -59,7 +62,6 @@ Conveyance-Manager/
 - Calcular valor
 - Abastecer veículo
 - Atualizar status
-- Calcular consumo
 - Consumo padrão
 
 ### Classe - Alocação 🛞
@@ -77,10 +79,24 @@ Conveyance-Manager/
 
 #### Métodos
 - Associar e registrar
+- Procurar alocação
 - Atualizar quilometragem
 - Tabela de alocações
 - Permissão para alocação
 - Validar CNH
+- Validar combustível
+
+### Classe - Configurações ⚙️
+
+> É a classe que cuida das configurações.
+
+#### Métodos
+- Configurar gasolina
+- Configurar manutenção
+- Consultar manutenção
+- Configurar compatibilidade
+- Configurar limite
+- Configurar consumo padrão
 
 ### Classe - Manutenção 🔧
 
@@ -100,7 +116,6 @@ Conveyance-Manager/
 - Marcar veiculo
 - Liberar veiculo
 - Registrar manutenção
-- Associar veículo
 
 ### Classe - Relatório 📝
 
@@ -109,7 +124,6 @@ Conveyance-Manager/
 #### Métodos
 - Relatório inicial
 - Gerar relatório do custo de manutenção
-- Gerar ranking veículos
 - Gerar relatório viagens
 - Gerar relatório da quilometragem
 
@@ -127,6 +141,14 @@ Conveyance-Manager/
 - Consumo médio
 - Status
 - Combustível
+
+#### Métodos
+- Tabela de veículos
+- Criar veículo
+- Ler veículo
+- Mostrar veículo
+- Atualizar veículo
+- Remover veículo
 
 #### Herança
 - É herdado por moto
@@ -154,22 +176,6 @@ Conveyance-Manager/
 #### Herança
 - Herda da classe veículo
 
-### Classe - Cadastro de veículos 🪪
-
-> É a classe que cuida do CRUD dos veículos.
-
-#### Atributo
-- Veículo
-
-#### Métodos
-- Tabela de veículos
-- Criar veículo
-- Ler veículo
-- Mostrar veículo
-- Atualizar veículo
-- Remover veículo
-- Registrar histórico
-
 ### Classe - Motorista🚦
 
 > É a classe dos motoristas.
@@ -181,13 +187,6 @@ Conveyance-Manager/
 - Experiência
 - Disponibilidade
 - Histórico
-
-### Classe - Cadastro de motoristas ✈️
-
-> É a classe que cuida do CRUD dos motoristas.
-
-#### Atributo
-- Motorista
 
 #### Métodos
 - Tabela de motoristas
