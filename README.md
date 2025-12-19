@@ -93,7 +93,6 @@ Conveyance-Manager/
 #### Métodos
 - Configurar gasolina
 - Configurar manutenção
-- Consultar manutenção
 - Configurar compatibilidade
 - Configurar limite
 - Configurar consumo padrão
